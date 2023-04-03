@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin page</title>
+    <link rel="stylesheet" href='../static/styles.css'">
+</head>
+<body>
+    <nav><a href="{{ url_for('main_page')  }}">Home</a></nav>
+    <h1>Add Airport</h1>
+    <form action="/add_airport" method="POST">
+        <label for="country">Country</label>
+        <input type="text" name="country" id="country">
+        <label for="city">City</label>
+        <input type="text" name="city" id="city">
+        <label for="name">Airport Name</label>
+        <input type="text" name="airport_name" id="airport_name">
+        <label for="timezone">Timezone</label>
+        <input type="text" name="timezone" id="timezone">
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>

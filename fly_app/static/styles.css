@@ -5,5 +5,34 @@
 }
 
 h1 {
+    padding-top: 3rem;
     color: dodgerblue;
+    text-align: center;
+}
+
+form {
+    padding-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    width: 40%;
+    margin: 0 auto;
+}
+
+nav {
+    height: 3rem;
+    background-color: #222;
+    color: antiquewhite;
+    display: flex;
+    flex-direction: column;
+    gap: 5rem;
+    justify-content: space-around;
+    border-bottom: 1px solid #000;
+}
+
+nav a {
+    color: antiquewhite;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding-left: 2rem;
 }

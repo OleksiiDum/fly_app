@@ -8,6 +8,10 @@
     <link rel="stylesheet" href='../static/styles.css'">
 </head>
 <body>
+    <nav><a href="{{ url_for('admin')  }}">Admin</a></nav>
     <h1>Main Page</h1>
+    {% for airport in airports %}
+        {{ airport }}
+    {% endfor %}
 </body>
 </html>

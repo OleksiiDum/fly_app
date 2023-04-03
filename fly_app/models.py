@@ -1,89 +1,75 @@
-from fly_app import app, db
-from fly_app.controllers import location
+from fly_app import db
 
 
-class Airports(db.Model):
+class Airport(db.Model):
 
     __tablename__ = 'airports'
     id = db.Column(db.Integer, primary_key=True)
-    country = db.Column(db.String)
-    city = db.Column(db.String)
-    airport_name = db.Column(db.String)
-    coordinate = db.Column(db.Float)
-    timezone = db.Column(db.Integer)
-    airport = db.relationship('Flights', backref='airport')
-
-    def get_location(self):
-        loc = location(self.city)
-        return loc
+    country = db.Column(db.String, nullable=False)
+    city = db.Column(db.String, nullable=False)
+    airport_name = db.Column(db.String, nullable=False)
+    timezone = db.Column(db.Integer, nullable=False)
 
     def __repr__(self):
-        return f'Airport: {self.airport_name}, {self.city} {self.country}. UTC {self.timezone}'
+        return f'Airport: {self.airport_name}, {self.city} {self.country}. UTC +{self.timezone}'
 
 
-class Flights(db.Model):
+class Flight(db.Model):
 
     __tablename__ = 'flights'
     id = db.Column(db.Integer, primary_key=True)
-    from_airport = db.Column(db.Integer, db.ForeignKey('airport.id')) #airports city
-    to_airport = db.Column(db.Integer, db.ForeignKey('airport.id')) #airports city
-    departure_time = db.Column(db.String)
-    arrivals_time = db.Column(db.String)
-    duration = db.Column(db.String)
-    seats = db.Column(db.Integer)
-    base_price = db.Column(db.Integer)
-    date = db.Column(db.String)
-    passengers = db.Column(db.String)
-    tickets = db.relationship('Tickets', backref='flight')
+    from_airport = db.Column(db.Integer, db.ForeignKey('airports.id'), nullable=False)
+    to_airport = db.Column(db.Integer, db.ForeignKey('airports.id'), nullable=False)
+    departure_time = db.Column(db.String, nullable=False)
+    arrivals_time = db.Column(db.String, nullable=False)
+    duration = db.Column(db.Float, nullable=False)
+    seats = db.Column(db.Integer, nullable=False)
+    base_price = db.Column(db.Integer, nullable=False)
+    date = db.Column(db.DateTime, nullable=False)
+    passengers = db.Column(db.String) #???
 
     def __repr__(self):
         return f'Flight from {self.from_airport} to {self.to_airport}. Date: {self.date}'
 
 
-class Tickets(db.Model):
+class Ticket(db.Model):
 
     __tablename__ = 'tickets'
     id = db.Column(db.Integer, primary_key=True)
-    passenger = db.Column(db.Integer, db.ForeignKey('user.id')) #users id
-    flight = db.Column(db.Integer, db.ForeignKey('flight.id')) #flight id
-    price = db.Column(db.Integer, db.ForeignKey('flight.base_price'))
-    additional_price = db.Column(db.Integer, db.ForeignKey('product.price'))
-    seat = db.Column(db.String)
-    baggage = db.Column(db.Integer, max=100)
-
-    def get_price(self):
-        baggage_payment = self.baggage * 10
-        price = self.price + baggage_payment + self.additional_price
-        return price
+    passenger = db.Column(db.Integer, db.ForeignKey('users.id')) #users id
+    flight = db.Column(db.Integer, db.ForeignKey('flights.id')) #flight id
+    price = db.Column(db.Integer, db.ForeignKey('flights.base_price'))
+    additional_price = db.Column(db.Integer, db.ForeignKey('products.price')) #???
+    seat = db.Column(db.String, nullable=False)
+    baggage = db.Column(db.Integer)
     
     def __repr__(self):
         return f'Ticket: {self.id}. Passenger: {self.passenger}. Flight: {self.flight}. Price: {self.get_price}'
 
 
-class Users(db.Model):
+class User(db.Model):
 
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
-    first_name = db.Column(db.String)
-    last_name = db.Column(db.String)
-    email = db.Column(db.String, unique=True)
-    password = db.Column(db.String)
-    passport = db.Column(db.String)
+    first_name = db.Column(db.String, nullable=False)
+    last_name = db.Column(db.String, nullable=False)
+    email = db.Column(db.String, unique=True, nullable=False)
+    nationality = db.Column(db.String, nullable=False)
+    password = db.Column(db.String, nullable=False)
+    passport = db.Column(db.String, unique=True, nullable=False)
     age = db.Column(db.Integer)
-    tickets = db.relationship('Tickets', backref='user')
 
     def __repr__(self):
         return f'{self.first_name} {self.last_name}. Email: {self.email}. Id:{self.id}'
 
 
-class Products(db.Model):
+class Product(db.Model):
     
     __tablename__ = 'products'
     id = db.Column(db.Integer, primary_key=True)
     product_name = db.Column(db.String)
     description = db.Column(db.String)
     price = db.Column(db.Integer)
-    product = db.relationship('Tickets', backref='product')
 
     def __repr__(self):
         return f'{self.product_name}: {self.price}'
