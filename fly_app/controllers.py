@@ -1,48 +1,24 @@
-from geopy.geocoders import Nominatim
-import math
-from fly_app.models import  Airport, Flight, Product, Ticket
-from flask import request
+from fly_app.models import  Airport, Flight, Product, Ticket, Account
 from fly_app import db
+import fly_app.helpers as helpers
+from flask import render_template, flash, Response
+
 
 
 # Geolocation and Path
-geolocator = Nominatim(user_agent="MyApp")
+# geolocator = Nominatim(user_agent="MyApp")
 
-kyiv_location = geolocator.geocode("Kyiv")
-berlin_location = geolocator.geocode("Berlin")
+# kyiv_location = geolocator.geocode("Kyiv")
+# berlin_location = geolocator.geocode("Berlin")
 
-def distance(coord1, coord2):
-    # Coordinates are given as (latitude, longitude) tuples
-    lat1, lon1 = coord1
-    lat2, lon2 = coord2
+# path = distance((kyiv_location.latitude, kyiv_location.longitude), (berlin_location.latitude, berlin_location.longitude))
 
-    # Convert degrees to radians
-    lat1, lon1, lat2, lon2 = map(math.radians, [lat1, lon1, lat2, lon2])
-
-    # Haversine formula
-    dlat = lat2 - lat1
-    dlon = lon2 - lon1
-    a = math.sin(dlat/2)**2 + math.cos(lat1) * math.cos(lat2) * math.sin(dlon/2)**2
-    c = 2 * math.asin(math.sqrt(a))
-    km = int(6371 * c)
-    print(f"Distance:{km} km")
-
-    return km
-
-path = distance((kyiv_location.latitude, kyiv_location.longitude), (berlin_location.latitude, berlin_location.longitude))
-
-
-#Price
-base_price = path * 0.25
-
-def get_price():
-    baggage_payment = Ticket.baggage * 10
-    price = base_price + baggage_payment + Ticket.additional_price
-    return price
+# #Price
+# base_price = path * 0.25
 
 
 #DB
-def create_airport():
+def create_airport(request):
     if request.method == "POST":
         country = request.form.get("country")
         city = request.form.get("city")
@@ -54,7 +30,41 @@ def create_airport():
         db.session.commit()
     return "Done"
 
-def get_all_airports():
+def get_all_airports(request):
     if request.method == "GET":
         all_airports = Airport.query.all()
         return all_airports
+
+def get_all_users(request):
+    if request.method == "GET":
+        all_users = Account.query.all()
+        return all_users
+
+# login controller
+def login_user(request):
+    if request.method == "POST":
+        email = request.form["email"]
+        user_password = request.form["password"]
+        db_user = Account.query.filter_by(email=email).first()
+        if db_user:
+            print("Ok")
+            if helpers.hashed(user_password) == db_user.password:
+                return render_template('index.html')
+            else:
+                print("password")
+                return "password incorrect"
+        else:
+            print("user")
+            return "User not found"
+
+# registration controller
+def register_user(request):
+    if request.method == "POST":
+        users = Account.query.all()
+        email = request.form.get("email")
+        password = request.form.get("password")
+        if not email in users:
+            user = Account(email=email, password=helpers.hashed(password))
+            db.session.add(user)
+            db.session.commit()
+    return "Done"

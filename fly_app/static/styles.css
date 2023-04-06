@@ -6,17 +6,22 @@
 
 h1 {
     padding-top: 3rem;
+    margin-bottom: 2rem;
     color: dodgerblue;
     text-align: center;
 }
 
 form {
-    padding-top: 1rem;
+    padding: 1rem;
+    margin-top: 1rem;
     display: flex;
     flex-direction: column;
     gap: 0.4rem;
     width: 40%;
     margin: 0 auto;
+    border: 1px solid #222;
+    background-color: #504c4c;
+    color: antiquewhite;
 }
 
 nav {
@@ -24,9 +29,9 @@ nav {
     background-color: #222;
     color: antiquewhite;
     display: flex;
-    flex-direction: column;
-    gap: 5rem;
-    justify-content: space-around;
+    align-items: center;
+    gap: 2rem;
+    justify-content: flex-start;
     border-bottom: 1px solid #000;
 }
 
@@ -34,5 +39,49 @@ nav a {
     color: antiquewhite;
     text-transform: uppercase;
     text-decoration: none;
-    padding-left: 2rem;
+    /* padding-left: 1rem; */
+}
+
+nav a:first-child {
+    padding-left: 1rem;
+}
+
+ul {
+    margin: 2rem;
+}
+
+.hidden {
+    display: none;
+}
+
+.registration-form {
+    position: fixed;
+    right: 24rem;
+    top: 5rem;
+    background-color: #222;
+    color: antiquewhite;
+    z-index: 9999;
+}
+
+.login-form {
+    position: fixed;
+    right: 24rem;
+    top: 5rem;
+    background-color: #2f7532;
+    color: antiquewhite;
+    z-index: 9999;
+}
+
+.registration-link, .login-link {
+    margin-right: 0;
+    text-transform: lowercase;
+    text-decoration: underline;
+}
+
+.false-background {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-color: #222222c2;
+    z-index: 9000;
 }

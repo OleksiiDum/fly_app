@@ -22,11 +22,6 @@ class Flight(db.Model):
     to_airport = db.Column(db.Integer, db.ForeignKey('airports.id'), nullable=False)
     departure_time = db.Column(db.String, nullable=False)
     arrivals_time = db.Column(db.String, nullable=False)
-    duration = db.Column(db.Float, nullable=False)
-    seats = db.Column(db.Integer, nullable=False)
-    base_price = db.Column(db.Integer, nullable=False)
-    date = db.Column(db.DateTime, nullable=False)
-    passengers = db.Column(db.String) #???
 
     def __repr__(self):
         return f'Flight from {self.from_airport} to {self.to_airport}. Date: {self.date}'
@@ -47,20 +42,29 @@ class Ticket(db.Model):
         return f'Ticket: {self.id}. Passenger: {self.passenger}. Flight: {self.flight}. Price: {self.get_price}'
 
 
-class User(db.Model):
+class Passanger(db.Model):
 
-    __tablename__ = 'users'
+    __tablename__ = 'passenger'
     id = db.Column(db.Integer, primary_key=True)
     first_name = db.Column(db.String, nullable=False)
     last_name = db.Column(db.String, nullable=False)
-    email = db.Column(db.String, unique=True, nullable=False)
-    nationality = db.Column(db.String, nullable=False)
-    password = db.Column(db.String, nullable=False)
+    nationality = db.Column(db.String, nullable=False) 
     passport = db.Column(db.String, unique=True, nullable=False)
     age = db.Column(db.Integer)
 
     def __repr__(self):
         return f'{self.first_name} {self.last_name}. Email: {self.email}. Id:{self.id}'
+    
+
+class Account(db.Model):
+    __tablename__ = 'accounts'
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String, unique=True, nullable=False)
+    password = db.Column(db.String, nullable=False)
+    verified = db.Column(db.Boolean, default=False)
+
+    def __repr__(self):
+        return f'{self.email} Password: {self.password}. Verified: {self.verified}'
 
 
 class Product(db.Model):
