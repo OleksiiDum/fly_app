@@ -1,7 +1,8 @@
-from fly_app.models import  Airport, Flight, Product, Ticket, Account
+from fly_app.models import  Airport, Flight, Product, Ticket, Account, Authcode
 from fly_app import db
 import fly_app.helpers as helpers
-from flask import render_template, flash, Response
+from flask import render_template, flash, Response, url_for
+from fly_app.send_mail import Mailer
 
 
 
@@ -42,10 +43,12 @@ def get_all_users(request):
 
 # login controller
 def login_user(request):
+    print("Login")
     if request.method == "POST":
         email = request.form["email"]
         user_password = request.form["password"]
         db_user = Account.query.filter_by(email=email).first()
+        print(db_user)
         if db_user:
             print("Ok")
             if helpers.hashed(user_password) == db_user.password:
@@ -65,6 +68,27 @@ def register_user(request):
         password = request.form.get("password")
         if not email in users:
             user = Account(email=email, password=helpers.hashed(password))
+            hash = helpers.randome_code()
             db.session.add(user)
             db.session.commit()
+            authcode = Authcode(code=hash, userid = user.id)
+            db.session.add(authcode)
+            db.session.commit()
+            url = url_for('verify', email=email, hash=hash)
+            Mailer(user.email, url, 'Test').send_text_mail()
     return "Done"
+
+def verify_user(request, email, hash):
+    user = Account.query.filter_by(email=email).first()
+    code = Authcode.query.filter_by(userid = user.id).first().code
+    print(type(hash))
+    print(type(code))
+    print(hash)
+    print(code)
+    if hash == code:
+        user.verified = True
+        db.session.add(user)
+        db.session.commit()
+        return "Verified"
+    else:
+        return "Error"

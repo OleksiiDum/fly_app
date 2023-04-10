@@ -1,5 +1,6 @@
 import math
 import hashlib
+from random import getrandbits as randbit
 
 def distance(coord1, coord2):
     # Coordinates are given as (latitude, longitude) tuples
@@ -31,3 +32,13 @@ def hashed(data):
     salt = "saltedhash"
     data = str(data) + salt
     return hashlib.md5(data.encode()).hexdigest()
+
+
+def randome_code():
+    hash = randbit(128)
+    return str(hash)
+
+
+def html_template():
+    template = "<h1>Hello</h1>"
+    return template

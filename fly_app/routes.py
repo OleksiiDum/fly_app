@@ -1,6 +1,6 @@
 from flask import render_template, url_for, request
 from fly_app import app
-from fly_app.controllers import create_airport, get_all_airports, get_all_users, register_user, login_user
+from fly_app.controllers import create_airport, get_all_airports, get_all_users, register_user, login_user, verify_user
 
 
 @app.route('/')
@@ -24,3 +24,7 @@ def registration():
 @app.route('/login', methods=["POST"])
 def login():
     return login_user(request)
+
+@app.route('/verifycation/<email>/<hash>')
+def verify(email, hash):
+    return verify_user(request, email, hash)

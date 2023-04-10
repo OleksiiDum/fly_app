@@ -44,7 +44,7 @@ class Ticket(db.Model):
 
 class Passanger(db.Model):
 
-    __tablename__ = 'passenger'
+    __tablename__ = 'passengers'
     id = db.Column(db.Integer, primary_key=True)
     first_name = db.Column(db.String, nullable=False)
     last_name = db.Column(db.String, nullable=False)
@@ -67,6 +67,14 @@ class Account(db.Model):
         return f'{self.email} Password: {self.password}. Verified: {self.verified}'
 
 
+class Authcode(db.Model):
+
+    __tablename__ = 'code'
+    id = db.Column(db.Integer, primary_key=True)
+    code = db.Column(db.String)
+    userid = db.Column(db.Integer, db.ForeignKey('accounts.id'))
+
+
 class Product(db.Model):
     
     __tablename__ = 'products'
@@ -77,3 +85,4 @@ class Product(db.Model):
 
     def __repr__(self):
         return f'{self.product_name}: {self.price}'
+    
