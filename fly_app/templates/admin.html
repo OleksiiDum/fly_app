@@ -1,8 +1,10 @@
 {% extends 'base.html' %}
 {% block title %}Admin page{% endblock title %}
 {% block body %}
-    <h1>Add Airport</h1>
+<div class="manage-airports">
+    
     <form action="/add_airport" method="POST">
+        <h1>Add Airport</h1>
         <label for="country">Country</label>
         <input type="text" name="country" id="country">
         <label for="city">City</label>
@@ -13,4 +15,73 @@
         <input type="text" name="timezone" id="timezone">
         <input type="submit" value="Submit">
     </form>
+    <form action="/manage_airports" method="DELETE"> #JS
+        <h1>Delete Airport</h1>
+        <label for="airport">Airport</label>
+        <select name="airport">
+            {% for airport in airports %}
+                <option value="{{ airport.id }}">{{ airport }}</option>
+            {% endfor %}
+        </select>
+        <input type="submit" value="Submit">
+    </form>
+</div>
+<div class="manage_flights">
+    
+    <form action="/add_flight" method="POST">
+        <h1>Add flight</h1>
+        <label for="from-airport">From Airport</label>
+        <select name="from-airport">
+            {% for airport in airports %}
+                <option value="{{ airport }}">{{ airport }}</option>
+            {% endfor %}
+        </select>
+        <label for="to-airport">From Airport</label>
+        <select name="to-airport">
+            {% for airport in airports %}
+                <option value="{{ airport }}">{{ airport }}</option>
+            {% endfor %}
+        </select>
+        <label for="dep-time">Departure Time</label>
+        <input type="time" name="dep-time">
+        <label for="arr-time">Arrival Time</label>
+        <input type="time" name="arr-time">
+        <input type="submit" value="Submit">
+    </form>
+    
+    <form action="/manage_flights" method="DELETE">
+        <h1>Delete Flight</h1>
+        <label for="flight">Flight</label>
+        <select name="flight">
+            {% for flight in flights %}
+                <option value="{{ flight }}">{{ flight }}</option>
+            {% endfor %}
+        </select>
+        <input type="submit" value="Submit">
+    </form>
+</div>
+<div class="manage_products">
+    
+    <form action="/add_product" method="POST">
+        <h1>Add product</h1>
+        <label for="product-name">Product Name</label>
+        <input type="text" name="product-name">
+        <label for="description">Description</label>
+        <input type="text" name="description">
+        <label for="price">Price</label>
+        <input type="text" name="price">
+        <input type="submit" value="Submit">
+    </form>
+    
+    <form action="/manage_products" method="DELETE">
+        <h1>Delete Product</h1>
+        <label for="product">Product</label>
+        <select name="product">
+            {% for product in products %}
+                <option value="{{ product.id }}">{{ product }}</option>
+            {% endfor %}
+        </select>
+        <input type="submit" value="Submit">
+    </form>
+</div>
 {% endblock body %}

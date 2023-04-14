@@ -5,10 +5,11 @@
 }
 
 h1 {
-    padding-top: 3rem;
-    margin-bottom: 2rem;
+    padding-top: 2rem;
+    margin-bottom: 1rem;
     color: dodgerblue;
     text-align: center;
+    display: inline-block;
 }
 
 form {
@@ -17,8 +18,8 @@ form {
     display: flex;
     flex-direction: column;
     gap: 0.4rem;
-    width: 40%;
-    margin: 0 auto;
+    width: 30%;
+    margin: 0.4rem auto;
     border: 1px solid #222;
     background-color: #504c4c;
     color: antiquewhite;
@@ -84,4 +85,10 @@ ul {
     width: 100%;
     background-color: #222222c2;
     z-index: 9000;
+}
+
+.manage-airports, .manage_flights, .manage_products {
+    display: flex;
+    border-bottom: 1px solid #3f2f2f;
+    gap: 2rem;
 }

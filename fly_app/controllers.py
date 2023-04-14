@@ -1,4 +1,4 @@
-from fly_app.models import  Airport, Flight, Product, Ticket, Account, Authcode
+from fly_app.models import  Airport, Flight, Product, Ticket, Account, Authcode, Passanger
 from fly_app import db
 import fly_app.helpers as helpers
 from flask import render_template, flash, Response, url_for
@@ -30,6 +30,19 @@ def create_airport(request):
         db.session.add(airport)
         db.session.commit()
     return "Done"
+
+def manage_airport(request):
+    airport_id = request.form.get('id')
+    if request.method == "GET":
+        airport = Airport.query.filter_by(id=airport_id).first()
+        return airport
+    elif request.method == "DELETE":
+        airport_to_delete = Airport.query.filter_by(id=airport_id).first()
+        db.session.delete(airport_to_delete)
+        db.session.commit()
+        return "Deleted"
+    else:
+        return "Wrong method"
 
 def get_all_airports(request):
     if request.method == "GET":
@@ -92,3 +105,91 @@ def verify_user(request, email, hash):
         return "Verified"
     else:
         return "Error"
+
+def create_passenger(request):
+    if  request.method == "POST":
+        first_name = request.form.get('first')
+        last_name = request.form.get('last')
+        nationality = request.form.get('nationality')
+        passport = request.form.get('passport')
+        age = request.form.get('age')
+        passenger = Passanger(first_name==first_name, last_name=last_name, nationality=nationality, passport=passport, age=age)
+        db.session.add(passenger)
+        db.session.commit()
+        return "Done"
+    else:
+        return "Wrong method"
+
+def create_flight(request):
+    if  request.method == "POST":
+        from_airport = request.form.get('from-airport')
+        to_airport = request.form.get('to-airport')
+        departure = request.form.get('dep-time')
+        arrivals = request.form.get('arr-time')
+        flight = Flight(from_airport=from_airport, to_airport=to_airport, departure_time=departure, arrivals_time=arrivals)
+        db.session.add(flight)
+        db.session.commit()
+        for seat, type in helpers.generate_seats():
+            ticket = Ticket(flight=flight.id, seat=seat, type=type)
+            db.session.add(ticket)
+        db.session.commit()
+        return "Done"
+    else:
+        return "Wrong Request Method"
+    
+def get_all_flights(request):
+    if request.method =="GET":
+        flights = Flight.query.all()
+        return flights
+    
+def manage_flight(request):
+    if request.method == "GET":
+        flight = Flight.query.filter_by(id=request.form.get('id')).first()
+        return flight
+    elif request.method == "DELETE":
+        flight_to_delete = Flight.query.filter_by(id=request.form.get('id')).first()
+        db.session.delete(flight_to_delete)
+        db.session.commit()
+        return "Deleted"
+    else:
+        return "Wrong Request Method"
+    
+def create_ticket(request):
+    passenger = request.passenger
+    flight = request.flight
+    price = 100
+    seat = request.seat
+    baggage = request.baggage or 0
+    ticket = Ticket(passenger=passenger, flight=flight, price=price, seat=seat, baggage = baggage)
+    db.session.add(ticket)
+    db.session.commit()
+    return "Done"
+
+def create_product(request):
+    if request.method == "POST":
+        product_name = request.form.get('product-name')
+        description = request.form.get('description')
+        price = request.form.get('price')
+        product = Product(product_name=product_name, description=description, price=price)
+        db.session.add(product)
+        db.session.commit()
+        return "Done"
+    else:
+        return "Wrong Request Method"
+
+def get_all_products(request):
+    if request.method == "GET":
+        products = Product.query.all()
+        return products
+    
+def manage_product(request):
+    if request.method =="GET":
+        product = Product.query.filter_by(id=request.form.get('id')).first()
+        return product
+    elif request.method == "DELETE":
+        product_to_delete = Product.query.filter_by(id=request.form.get('id')).first()
+        db.session.delete(product_to_delete)
+        db.session.commit()
+        return "Deleted"
+    else:
+        return "Wrong Request Method"

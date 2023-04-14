@@ -9,6 +9,12 @@
 </ul>
 <br/>
 <ul>
+    {% for flight in flights %}
+        <li>{{ flight }}</li>
+    {% endfor %}
+</ul>
+<br>
+<ul>
     {% for user in users %}
         <li>{{ user }}</li>
     {% endfor %}

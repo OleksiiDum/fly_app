@@ -22,21 +22,21 @@ class Flight(db.Model):
     to_airport = db.Column(db.Integer, db.ForeignKey('airports.id'), nullable=False)
     departure_time = db.Column(db.String, nullable=False)
     arrivals_time = db.Column(db.String, nullable=False)
+    standard_price = db.Column(db.Integer, nullable=True)
+    vip_price = db.Column(db.Integer, nullable=True)
 
     def __repr__(self):
-        return f'Flight from {self.from_airport} to {self.to_airport}. Date: {self.date}'
+        return f'Flight from {self.from_airport} to {self.to_airport}. Date: {self.departure_time}'
 
 
 class Ticket(db.Model):
 
     __tablename__ = 'tickets'
     id = db.Column(db.Integer, primary_key=True)
-    passenger = db.Column(db.Integer, db.ForeignKey('users.id')) #users id
-    flight = db.Column(db.Integer, db.ForeignKey('flights.id')) #flight id
-    price = db.Column(db.Integer, db.ForeignKey('flights.base_price'))
-    additional_price = db.Column(db.Integer, db.ForeignKey('products.price')) #???
+    passenger = db.Column(db.Integer, db.ForeignKey('passengers.id'), nullable=True)
+    flight = db.Column(db.Integer, db.ForeignKey('flights.id'))
     seat = db.Column(db.String, nullable=False)
-    baggage = db.Column(db.Integer)
+    type = db.Column(db.String)
     
     def __repr__(self):
         return f'Ticket: {self.id}. Passenger: {self.passenger}. Flight: {self.flight}. Price: {self.get_price}'
