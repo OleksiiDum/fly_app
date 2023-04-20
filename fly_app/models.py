@@ -39,7 +39,7 @@ class Ticket(db.Model):
     type = db.Column(db.String)
     
     def __repr__(self):
-        return f'Ticket: {self.id}. Passenger: {self.passenger}. Flight: {self.flight}. Price: {self.get_price}'
+        return f'Ticket: {self.id}. Flight: {self.flight}. Seat: {self.seat} {self.type}.'
 
 
 class Passanger(db.Model):
@@ -53,7 +53,7 @@ class Passanger(db.Model):
     age = db.Column(db.Integer)
 
     def __repr__(self):
-        return f'{self.first_name} {self.last_name}. Email: {self.email}. Id:{self.id}'
+        return f'{self.first_name} {self.last_name}. Is: {self.nationality}. Id:{self.id}'
     
 
 class Account(db.Model):

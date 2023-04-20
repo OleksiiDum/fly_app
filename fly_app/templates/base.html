@@ -10,8 +10,14 @@
 <body>
     <nav>
         <a class="link" href="{{ url_for('main_page') }}">Main</a>
-        <a class="link" href="{{ url_for('admin')  }}">Admin</a>
-        <div><a class="registration-link" href="#">Registration</a>/<a class="login-link" href="#">Login</a></div>
+        <div><a class="registration-link" href="#">Register</a>/<a class="login-link" href="#">Login</a><a class="logout-link" href="{{ url_for('logout') }}">logout</a></div>
+        {% if  'admin' in session %}
+            <a class="link" href="{{ url_for('admin')  }}">Admin</a>
+        {% endif %}
+        {% if 'email' in session and not 'admin' in session %}
+            <a class="passenger-link" href="{{ url_for('account_page') }}">Account</a>
+        {% endif %}
+
     </nav>
     <form class="registration-form hidden" action="/registration" method="post">
         <label for="email">Email</label>
@@ -29,19 +35,7 @@
         <input type="password" name="password">
         <input type="submit" value="Submit">
     </form>
-    <form class="passenger" action="/create_passenger" method="post">
-        <label for="first">First Name</label>
-        <input type="text" name="first">
-        <label for="last">Last Name</label>
-        <input type="text" name = last>
-        <label for="nationality">Nationality</label>
-        <input type="text" name="nationality">
-        <label for="passport">Passport</label>
-        <input type="text" name="passport">
-        <label for="age">Age</label>
-        <input type="text" name="age">
-        <input type="submit" value="Submit">
-    </form>
+    
     <div class="false-background hidden"></div>
     {% block body %}{% endblock %}
     <script src="{{url_for('static', filename='base.js')}}"></script>

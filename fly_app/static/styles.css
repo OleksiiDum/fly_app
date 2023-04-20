@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Lora:wght@400;700&display=swap');
 * {
     margin: 0;
     padding: 0;
@@ -5,6 +6,7 @@
 }
 
 h1 {
+    font-family: 'Lora', serif;
     padding-top: 2rem;
     margin-bottom: 1rem;
     color: dodgerblue;
@@ -26,9 +28,11 @@ form {
 }
 
 nav {
-    height: 3rem;
-    background-color: #222;
-    color: antiquewhite;
+    font-family: 'Lora', serif;
+    font-weight: 700;
+    height: 10rem;
+    background-image: url(flight.jpg);
+    color: rgb(46, 25, 106);
     display: flex;
     align-items: center;
     gap: 2rem;
@@ -37,10 +41,10 @@ nav {
 }
 
 nav a {
-    color: antiquewhite;
+    color: rgb(46, 25, 106);
     text-transform: uppercase;
     text-decoration: none;
-    /* padding-left: 1rem; */
+    font-size: 2rem;
 }
 
 nav a:first-child {
@@ -77,10 +81,20 @@ ul {
     margin-right: 0;
     text-transform: lowercase;
     text-decoration: underline;
+    font-size: 1rem;
+}
+
+.logout-link {
+    margin: 0;
+    padding-left: 1rem;
+    color: maroon;
+    text-transform: lowercase;
+    text-decoration: none;
+    font-size: 1rem;
 }
 
 .false-background {
-    position: absolute;
+    position: fixed;
     height: 100%;
     width: 100%;
     background-color: #222222c2;
@@ -91,4 +105,15 @@ ul {
     display: flex;
     border-bottom: 1px solid #3f2f2f;
     gap: 2rem;
+}
+
+.flights-list {
+    border: 1px solid #180945;
+    background-color: #beb5da;
+}
+
+.flight-item {
+    margin: 0.2px;
+    padding: 0.4px;
+    border: 0.4px solid #504c4c;
 }

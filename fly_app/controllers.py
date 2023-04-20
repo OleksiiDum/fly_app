@@ -1,7 +1,7 @@
 from fly_app.models import  Airport, Flight, Product, Ticket, Account, Authcode, Passanger
 from fly_app import db
 import fly_app.helpers as helpers
-from flask import render_template, flash, Response, url_for
+from flask import render_template, url_for, session, redirect
 from fly_app.send_mail import Mailer
 
 
@@ -29,20 +29,19 @@ def create_airport(request):
         airport = Airport(country=country, city=city, airport_name=airport_name, timezone=timezone)
         db.session.add(airport)
         db.session.commit()
-    return "Done"
+        return redirect(url_for('admin'))
+    else:
+        pass
 
 def manage_airport(request):
-    airport_id = request.form.get('id')
-    if request.method == "GET":
-        airport = Airport.query.filter_by(id=airport_id).first()
-        return airport
-    elif request.method == "DELETE":
+    if request.method == "DELETE":
+        airport_id = request.form.get('id')
         airport_to_delete = Airport.query.filter_by(id=airport_id).first()
         db.session.delete(airport_to_delete)
         db.session.commit()
-        return "Deleted"
+        return redirect(url_for('admin'))
     else:
-        return "Wrong method"
+        pass
 
 def get_all_airports(request):
     if request.method == "GET":
@@ -56,15 +55,16 @@ def get_all_users(request):
 
 # login controller
 def login_user(request):
-    print("Login")
     if request.method == "POST":
         email = request.form["email"]
         user_password = request.form["password"]
         db_user = Account.query.filter_by(email=email).first()
-        print(db_user)
         if db_user:
-            print("Ok")
+            if email == 'admin@mail.com':
+                if helpers.hashed(user_password) == db_user.password:
+                    session["admin"] = True
             if helpers.hashed(user_password) == db_user.password:
+                session['email']  = db_user.email
                 return render_template('index.html')
             else:
                 print("password")
@@ -72,6 +72,10 @@ def login_user(request):
         else:
             print("user")
             return "User not found"
+
+def logout_user(request):
+    session.clear()
+    return render_template('index.html')
 
 # registration controller
 def register_user(request):
@@ -113,10 +117,17 @@ def create_passenger(request):
         nationality = request.form.get('nationality')
         passport = request.form.get('passport')
         age = request.form.get('age')
-        passenger = Passanger(first_name==first_name, last_name=last_name, nationality=nationality, passport=passport, age=age)
+        passenger = Passanger(first_name=first_name, last_name=last_name, nationality=nationality, passport=passport, age=age)
         db.session.add(passenger)
         db.session.commit()
         return "Done"
+    else:
+        return "Wrong method"
+
+def get_all_passengers(request):
+    if request.method  == "GET":
+        passengers = Passanger.query.all()
+        return passengers
     else:
         return "Wrong method"
 
@@ -133,7 +144,7 @@ def create_flight(request):
             ticket = Ticket(flight=flight.id, seat=seat, type=type)
             db.session.add(ticket)
         db.session.commit()
-        return "Done"
+        return redirect(url_for('admin'))
     else:
         return "Wrong Request Method"
     
@@ -143,27 +154,28 @@ def get_all_flights(request):
         return flights
     
 def manage_flight(request):
-    if request.method == "GET":
-        flight = Flight.query.filter_by(id=request.form.get('id')).first()
-        return flight
-    elif request.method == "DELETE":
+    if  request.method == "DELETE":
         flight_to_delete = Flight.query.filter_by(id=request.form.get('id')).first()
         db.session.delete(flight_to_delete)
         db.session.commit()
-        return "Deleted"
+        return redirect(url_for('admin'))
     else:
-        return "Wrong Request Method"
+        pass
     
 def create_ticket(request):
     passenger = request.passenger
     flight = request.flight
-    price = 100
     seat = request.seat
     baggage = request.baggage or 0
-    ticket = Ticket(passenger=passenger, flight=flight, price=price, seat=seat, baggage = baggage)
+    ticket = Ticket(passenger=passenger, flight=flight, seat=seat, baggage = baggage)
     db.session.add(ticket)
     db.session.commit()
     return "Done"
+
+def get_tickets(request):
+    if request.method == "GET":
+        tickets = Ticket.query.all()
+        return tickets
 
 def create_product(request):
     if request.method == "POST":
@@ -173,9 +185,9 @@ def create_product(request):
         product = Product(product_name=product_name, description=description, price=price)
         db.session.add(product)
         db.session.commit()
-        return "Done"
+        return redirect(url_for('admin'))
     else:
-        return "Wrong Request Method"
+        pass
 
 def get_all_products(request):
     if request.method == "GET":
@@ -183,13 +195,10 @@ def get_all_products(request):
         return products
     
 def manage_product(request):
-    if request.method =="GET":
-        product = Product.query.filter_by(id=request.form.get('id')).first()
-        return product
-    elif request.method == "DELETE":
+    if  request.method == "DELETE":
         product_to_delete = Product.query.filter_by(id=request.form.get('id')).first()
         db.session.delete(product_to_delete)
         db.session.commit()
-        return "Deleted"
+        return redirect(url_for('admin'))
     else:
-        return "Wrong Request Method"
+        pass

@@ -1,6 +1,9 @@
 import math
 import hashlib
 from random import getrandbits as randbit
+from functools import wraps
+from flask import session
+
 
 def distance(coord1, coord2):
     # Coordinates are given as (latitude, longitude) tuples
@@ -70,3 +73,28 @@ def generate_seats():
 
     return seats_list
 
+def is_logged_in():
+    if session.get('email'):
+        return True
+
+def auth_required(func):
+    @wraps(func)
+    def wraper():
+        if is_logged_in:
+            return func()
+        else:
+            return "Login first"
+    return wraper
+
+def is_admin():
+    if session.get('admin'):
+        return True
+
+def admin(func):
+    @wraps(func)
+    def new_wraper():
+        if is_admin:
+            return func()
+        else:
+            return "Access Denied"
+    return new_wraper

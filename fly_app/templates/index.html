@@ -1,22 +1,37 @@
 {% extends 'base.html' %}
 {% block title %}Main{% endblock title %}
 {% block body %}
-<h1>Main Page</h1>
-<ul>
-    {% for airport in airports %}
-        <li>{{ airport }}</li>
-    {% endfor %}
+
+<ul class="flights-list">
+{% for flight in flights %}
+        <li class="flight-item">{{ flight }}</li>
+{% endfor %}
 </ul>
-<br/>
-<ul>
-    {% for flight in flights %}
-        <li>{{ flight }}</li>
-    {% endfor %}
-</ul>
-<br>
-<ul>
-    {% for user in users %}
-        <li>{{ user }}</li>
-    {% endfor %}
-</ul>
+
+<div>
+    <form action="/by_ticket" method="POST">
+        <h1>By Ticket</h1>
+        <label for="passenger">Select Passenger</label>
+        <select name="passenger">
+            {% for passenger in passengers %}
+                <option value="{{ passenger.id }}">{{ passenger.last_name }}</option>
+            {% endfor %}
+        </select>
+        <label for="flight">Select Flight</label>
+        <select name="flight">
+            {% for flight in flights %}
+                <option value="{{ flight.id }}">{{ flight }}</option>
+            {% endfor %}
+        </select>
+        <label for="seat">Select Seat</label>
+        <select name="seat">
+            {% for seat in seats %}
+                <option value="{{ seat.id }}">{{ seat }}</option>
+            {% endfor %}
+        </select>
+        
+        <input type="submit" value="Submit">
+    </form>
+</div>
+
 {% endblock body %}

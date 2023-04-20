@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %}Account{% endblock title %}
+{% block body %}
+{% block link %}
+    
+{% endblock link %}
+    <h1>Manage Account</h1>
+    <form class="passenger-form" action="/add_passenger" method="post">
+        <h1>Add passenger</h1>
+        <label for="first">First Name</label>
+        <input type="text" name="first">
+        <label for="last">Last Name</label>
+        <input type="text" name = last>
+        <label for="nationality">Nationality</label>
+        <input type="text" name="nationality">
+        <label for="passport">Passport</label>
+        <input type="text" name="passport">
+        <label for="age">Age</label>
+        <input type="text" name="age">
+        <input type="submit" value="Submit">
+    </form>
+{% endblock body %}
