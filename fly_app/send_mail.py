@@ -11,8 +11,8 @@ class Mailer:
 
     SERVER = 'smtp.gmail.com'
     PORT = 465
-    PASSWORD = 'kwsnantrpxpgfwql'
-    LOGIN = 'oleksii.dumenko@gmail.com'
+    PASSWORD = '****'
+    LOGIN = '****'
 
     connection = smtplib.SMTP_SSL(SERVER, PORT)
     connection.login(LOGIN, PASSWORD)
