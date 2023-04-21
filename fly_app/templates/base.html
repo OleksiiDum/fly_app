@@ -10,7 +10,7 @@
 <body>
     <nav>
         <a class="link" href="{{ url_for('main_page') }}">Main</a>
-        <div><a class="registration-link" href="#">Register</a>/<a class="login-link" href="#">Login</a><a class="logout-link" href="{{ url_for('logout') }}">logout</a></div>
+        <div><a class="registration-link" href="{{ url_for('registration_page')  }}">Register</a>/<a class="login-link" href="{{ url_for('login_page')  }}">Login</a><a class="logout-link" href="{{ url_for('logout') }}">logout</a></div>
         {% if  'admin' in session %}
             <a class="link" href="{{ url_for('admin')  }}">Admin</a>
         {% endif %}
@@ -19,22 +19,6 @@
         {% endif %}
 
     </nav>
-    <form class="registration-form hidden" action="/registration" method="post">
-        <label for="email">Email</label>
-        <input type="email" name="email">
-        <label for="password">Password</label>
-        <input type="password" name="password">
-        <label for="password">Confirm Password</label>
-        <input type="password" name="submit-password">
-        <input type="submit" value="Submit">
-    </form>
-    <form class="login-form hidden" action="/login" method="post">
-        <label for="email">Email</label>
-        <input type="email" name="email">
-        <label for="password">Password</label>
-        <input type="password" name="password">
-        <input type="submit" value="Submit">
-    </form>
     
     <div class="false-background hidden"></div>
     {% block body %}{% endblock %}

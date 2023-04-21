@@ -4,24 +4,48 @@ from fly_app.controllers import create_airport, get_all_airports, get_all_users,
 from fly_app import helpers
 
 @app.route('/')
-def main_page():   
+def main_page():
+    return render_template("index.html")
+    
+@app.route('/registration_page')
+def registration_page():
+    return render_template("register.html")
+
+@app.route('/login_page')
+def login_page():
+    return render_template("login.html")
+
+@app.route('/account_page')
+def account_page():
     all_flights = get_all_flights(request)
     all_tickets = get_tickets(request)
     all_passengers = get_all_passengers(request)
-    return render_template('index.html', flights=all_flights, tickets=all_tickets, passengers=all_passengers)
+    return render_template('account.html', flights=all_flights, tickets=all_tickets, passengers=all_passengers)
 
-@app.route('/account')
-def account_page():
-    return render_template('account.html')
-
-@app.route('/admin')
+@app.route('/admin_page')
 @helpers.admin
-def admin():
+def admin_page():
     all_users = get_all_users(request)
     all_airports = get_all_airports(request)
     all_flights = get_all_flights(request)
     all_products = get_all_products(request)
     return render_template('admin.html', airports=all_airports, flights=all_flights, products=all_products, users=all_users)
+
+@app.route('/register', methods=["POST"])
+def register():
+    return register_user(request)
+
+@app.route('/login', methods=["POST"])
+def login():
+    return login_user(request)
+
+@app.route('/logout')
+def logout():
+    return logout_user(request)
+
+@app.route('/verifycation/<email>/<hash>')
+def verify(email, hash):
+    return verify_user(request, email, hash)
 
 @app.route('/add_airport', methods=["POST"])
 @helpers.admin
@@ -33,26 +57,10 @@ def add_airport():
 def manage_airports():
     return manage_airport(request)
 
-@app.route('/registration', methods=["POST"])
-def registration():
-    return register_user(request)
-
-@app.route('/login', methods=["POST"])
-def login():
-    return login_user(request)
-
-@app.route('/logout')
-def logout():
-    return logout_user(request)
-
 @app.route('/add_passenger', methods=["POST"])
 @helpers.auth_required
 def add_passenger():
     return create_passenger(request)
-
-@app.route('/verifycation/<email>/<hash>')
-def verify(email, hash):
-    return verify_user(request, email, hash)
 
 @app.route('/add_flight', methods=["GET", "POST"])
 @helpers.admin

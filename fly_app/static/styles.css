@@ -60,18 +60,20 @@ ul {
 }
 
 .registration-form {
-    position: fixed;
+    /* position: fixed;
     right: 24rem;
-    top: 5rem;
+    top: 5rem; */
+    margin-top: 1rem;
     background-color: #222;
     color: antiquewhite;
     z-index: 9999;
 }
 
 .login-form {
-    position: fixed;
+    /* position: fixed;
     right: 24rem;
-    top: 5rem;
+    top: 5rem; */
+    margin-top: 1rem;
     background-color: #2f7532;
     color: antiquewhite;
     z-index: 9999;

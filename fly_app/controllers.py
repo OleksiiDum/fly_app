@@ -67,10 +67,8 @@ def login_user(request):
                 session['email']  = db_user.email
                 return render_template('index.html')
             else:
-                print("password")
                 return "password incorrect"
         else:
-            print("user")
             return "User not found"
 
 def logout_user(request):
@@ -98,10 +96,6 @@ def register_user(request):
 def verify_user(request, email, hash):
     user = Account.query.filter_by(email=email).first()
     code = Authcode.query.filter_by(userid = user.id).first().code
-    print(type(hash))
-    print(type(code))
-    print(hash)
-    print(code)
     if hash == code:
         user.verified = True
         db.session.add(user)
