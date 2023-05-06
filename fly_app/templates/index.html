@@ -2,8 +2,35 @@
 {% block title %}Main{% endblock title %}
 {% block body %}
 
-<h1>Main Page</h1>
 
-<p>Hello {{ session.email }}</p>
 
+
+<div class="slide-show">
+    <img class="mySlides" src="../static/paris.png" >
+    <img class="mySlides" src="../static/london.png" >
+    <img class="mySlides" src="../static/nyc.png" >
+    <div class="flight-choose">
+        <div class="booking-tabs">
+            <button class="tabs">Select Flight</button>
+            <button class="tabs">Select Passengers</button>
+            <button class="tabs">Payment method</button>
+            <button class="tabs">Confirm Flight</button>
+        </div>
+        <form>
+            <select name="from" id="from">
+                <option value="airport">Airport1</option>
+            </select>
+            <select name="to" id="to">
+                <option value="airport">Airport2</option>
+            </select>
+            <input type="number" name="quantity" id="quantity">
+            <input type="date">
+            <input type="date">
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+
+</div>
+
+<script src="{{url_for('static', filename='main.js')}}"></script>
 {% endblock body %}

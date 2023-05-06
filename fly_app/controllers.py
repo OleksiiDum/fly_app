@@ -1,37 +1,22 @@
 from fly_app.models import  Airport, Flight, Product, Ticket, Account, Authcode, Passanger
 from fly_app import db
 import fly_app.helpers as helpers
-from flask import render_template, url_for, session, redirect
+from flask import render_template, url_for, session, redirect, jsonify
 from fly_app.send_mail import Mailer
 
 
+# AIRPORT
 
-# Geolocation and Path
-# geolocator = Nominatim(user_agent="MyApp")
-
-# kyiv_location = geolocator.geocode("Kyiv")
-# berlin_location = geolocator.geocode("Berlin")
-
-# path = distance((kyiv_location.latitude, kyiv_location.longitude), (berlin_location.latitude, berlin_location.longitude))
-
-# #Price
-# base_price = path * 0.25
-
-
-#DB
 def create_airport(request):
     if request.method == "POST":
         country = request.form.get("country")
         city = request.form.get("city")
         airport_name = request.form.get("airport_name")
         timezone = request.form.get("timezone")
-        
         airport = Airport(country=country, city=city, airport_name=airport_name, timezone=timezone)
         db.session.add(airport)
         db.session.commit()
         return redirect(url_for('admin'))
-    else:
-        pass
 
 def manage_airport(request):
     if request.method == "DELETE":
@@ -40,13 +25,15 @@ def manage_airport(request):
         db.session.delete(airport_to_delete)
         db.session.commit()
         return redirect(url_for('admin'))
-    else:
-        pass
+    elif request.method == "GET":
+        airport_id = request.form.get('id')
+        airport = Airport.query.filter_by(id=airport_id).first()
+        return jsonify({"airport": airport})
 
 def get_all_airports(request):
     if request.method == "GET":
         all_airports = Airport.query.all()
-        return all_airports
+        return jsonify(all_airports)
 
 def get_all_users(request):
     if request.method == "GET":

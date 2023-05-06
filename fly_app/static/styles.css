@@ -5,55 +5,124 @@
     box-sizing: border-box;
 }
 
+body {
+    background-color: #e7ecf3;
+    /* color: CanvasText; */
+    /* color-scheme: light; */
+  }
+
 h1 {
     font-family: 'Lora', serif;
-    padding-top: 2rem;
-    margin-bottom: 1rem;
+    margin: 1rem auto;
     color: dodgerblue;
     text-align: center;
-    display: inline-block;
 }
 
 form {
-    padding: 1rem;
-    margin-top: 1rem;
+    /* padding: 1rem; */
+    /* margin-top: 3rem; */
     display: flex;
     flex-direction: column;
     gap: 0.4rem;
-    width: 30%;
-    margin: 0.4rem auto;
-    border: 1px solid #222;
-    background-color: #504c4c;
-    color: antiquewhite;
+    width: 80%;
+    margin: 2rem auto;
+    /* border: 1px solid #222; */
+    /* color: antiquewhite; */
 }
+
+/*--------NAV BAR---------------*/
 
 nav {
     font-family: 'Lora', serif;
     font-weight: 700;
     height: 10rem;
-    background-image: url(flight.jpg);
-    color: rgb(46, 25, 106);
+    border-top: 5px  solid rgb(46, 25, 106);
     display: flex;
     align-items: center;
-    gap: 2rem;
-    justify-content: flex-start;
-    border-bottom: 1px solid #000;
+    /* gap: 2rem; */
+    justify-content: space-around;
 }
 
-nav a {
-    color: rgb(46, 25, 106);
+.logo {
+    position: absolute;
+    top: 7px;
+    left: 2px;
+    width: 100px;
+    height: 100px;
+}
+
+.nav-menu {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+}
+
+.nav-menu a {
+    color: #2e196a;
     text-transform: uppercase;
     text-decoration: none;
-    font-size: 2rem;
+    font-size: 1rem;
 }
 
-nav a:first-child {
-    padding-left: 1rem;
+.nav-menu a:hover {
+    border-bottom: 3px solid #2e196a;
+    transition: 0.1s;
 }
 
-ul {
-    margin: 2rem;
+/*----------CAROUSEL--------*/
+
+img {
+    width: 750px;
+    height: 450px;
 }
+
+.slide-show {
+    margin: 0 auto;
+    display: block;
+    width: 750px;
+    height: 450px;
+    border-top: 15px solid rgb(46, 25, 106);
+}
+
+.flight-choose {
+    position: absolute;
+    top: 18rem;
+    right: 30%;
+    width: 500px;
+    height: 300px;
+    background-color: #bac6e5cd;
+    margin: 0 auto;
+}
+
+/*-------BOOKING--------*/
+
+.booking-tabs {
+    width: 100%;
+    height: 10%;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    background-color: #bac6e5ef
+}
+
+.tabs {
+    padding: 5px;
+    padding-top: 10px;
+    font-size: 1rem;
+    float: left;
+    cursor: pointer;
+    border: none;
+    border-right: 1px solid #ccc;
+    outline: none;
+    background-color: #bac6e5ef;
+    transition: 0.3s;
+}
+
+.tabs:hover {
+    background-color:  rgb(46, 25, 106);
+    color: #bac6e5ef;
+}
+
+/*---------REGISTRATION--------*/
 
 .hidden {
     display: none;
@@ -63,9 +132,10 @@ ul {
     /* position: fixed;
     right: 24rem;
     top: 5rem; */
-    margin-top: 1rem;
-    background-color: #222;
-    color: antiquewhite;
+    /* margin-top: 1rem; */
+    width: 50%;
+    /* background-color: #222; */
+    /* color: antiquewhite; */
     z-index: 9999;
 }
 
