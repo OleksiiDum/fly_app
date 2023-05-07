@@ -27,7 +27,6 @@ form {
     width: 80%;
     margin: 2rem auto;
     /* border: 1px solid #222; */
-    /* color: antiquewhite; */
 }
 
 /*--------NAV BAR---------------*/
@@ -135,9 +134,13 @@ img {
     /* margin-top: 1rem; */
     width: 50%;
     /* background-color: #222; */
-    /* color: antiquewhite; */
     z-index: 9999;
 }
+
+/* input[type=submit] {
+    background-color: #2e196a;
+    color: #e7ecf3;
+} */
 
 .login-form {
     /* position: fixed;
