@@ -5,8 +5,7 @@ from flask import render_template, url_for, session, redirect, jsonify
 from fly_app.send_mail import Mailer
 
 
-# AIRPORT
-
+#AIRPORT
 def create_airport(request):
     if request.method == "POST":
         country = request.form.get("country")
@@ -35,12 +34,12 @@ def get_all_airports(request):
         all_airports = Airport.query.all()
         return jsonify(all_airports)
 
+#USER
 def get_all_users(request):
     if request.method == "GET":
         all_users = Account.query.all()
         return all_users
 
-# login controller
 def login_user(request):
     if request.method == "POST":
         email = request.form["email"]
@@ -52,11 +51,12 @@ def login_user(request):
                     session["admin"] = True
             if helpers.hashed(user_password) == db_user.password:
                 session['email']  = db_user.email
-                return render_template('index.html')
+                return jsonify({"OK": True})
             else:
-                return "password incorrect"
+                return jsonify({"OK": False, "Status": "password incorrect"})
         else:
-            return "User not found"
+            return jsonify({"OK": False, "Status": "user not found"})
+        
 
 def logout_user(request):
     session.clear()
@@ -78,7 +78,7 @@ def register_user(request):
             db.session.commit()
             url = url_for('verify', email=email, hash=hash)
             Mailer(user.email, url, 'Test').send_text_mail()
-    return "Done"
+    return jsonify({"message": "OK"})
 
 def verify_user(request, email, hash):
     user = Account.query.filter_by(email=email).first()
@@ -91,6 +91,7 @@ def verify_user(request, email, hash):
     else:
         return "Error"
 
+#PASSENGER
 def create_passenger(request):
     if  request.method == "POST":
         first_name = request.form.get('first')
@@ -98,7 +99,8 @@ def create_passenger(request):
         nationality = request.form.get('nationality')
         passport = request.form.get('passport')
         age = request.form.get('age')
-        passenger = Passanger(first_name=first_name, last_name=last_name, nationality=nationality, passport=passport, age=age)
+        account_id = Account.query.filter_by(email=session["email"]).first().id
+        passenger = Passanger(first_name=first_name, last_name=last_name, nationality=nationality, passport=passport, age=age, account_id=account_id)
         db.session.add(passenger)
         db.session.commit()
         return "Done"
@@ -112,6 +114,7 @@ def get_all_passengers(request):
     else:
         return "Wrong method"
 
+#FLIGHT
 def create_flight(request):
     if  request.method == "POST":
         from_airport = request.form.get('from-airport')
@@ -142,7 +145,8 @@ def manage_flight(request):
         return redirect(url_for('admin'))
     else:
         pass
-    
+
+#TICKET   
 def create_ticket(request):
     passenger = request.passenger
     flight = request.flight
@@ -158,6 +162,8 @@ def get_tickets(request):
         tickets = Ticket.query.all()
         return tickets
 
+
+#PRODUCT
 def create_product(request):
     if request.method == "POST":
         product_name = request.form.get('product-name')

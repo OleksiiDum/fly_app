@@ -7,14 +7,12 @@
 
 body {
     background-color: #e7ecf3;
-    /* color: CanvasText; */
-    /* color-scheme: light; */
   }
 
 h1 {
     font-family: 'Lora', serif;
     margin: 1rem auto;
-    color: dodgerblue;
+    color: #2e196a;
     text-align: center;
 }
 
@@ -27,6 +25,11 @@ form {
     width: 80%;
     margin: 2rem auto;
     /* border: 1px solid #222; */
+}
+
+button.active {
+    background-color: #2e196a;
+    color: #e7ecf3;
 }
 
 /*--------NAV BAR---------------*/
@@ -117,7 +120,7 @@ img {
 }
 
 .tabs:hover {
-    background-color:  rgb(46, 25, 106);
+    background-color:  rgba(47, 25, 106, 0.579);
     color: #bac6e5ef;
 }
 
@@ -127,7 +130,7 @@ img {
     display: none;
 }
 
-.registration-form {
+.registration-form, .login-form {
     /* position: fixed;
     right: 24rem;
     top: 5rem; */
@@ -137,19 +140,26 @@ img {
     z-index: 9999;
 }
 
-/* input[type=submit] {
-    background-color: #2e196a;
-    color: #e7ecf3;
-} */
+input {
+    height: 2rem;
+    font-size: 0.9rem;
+    border-radius: 0.2rem;
+    border: 0.4px solid #beb5da;
+}
 
-.login-form {
-    /* position: fixed;
-    right: 24rem;
-    top: 5rem; */
-    margin-top: 1rem;
-    background-color: #2f7532;
-    color: antiquewhite;
-    z-index: 9999;
+input[type=submit] {
+    height: 2rem;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    border-radius: 0.2rem;
+    border: 0.4px solid #beb5da;
+    background-color:  rgb(46, 25, 106);
+    color: #bac6e5ef;
+}
+
+.login-form { 
+    color: #bac6e5ef;
+    font-weight: 600;
 }
 
 .registration-link, .login-link {

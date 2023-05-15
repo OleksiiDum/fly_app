@@ -10,34 +10,8 @@
             <li class="flight-item">{{ flight }}</li>
     {% endfor %}
     </ul>
-    
-    <div>
-        <form action="/by_ticket" method="POST">
-            <h1>By Ticket</h1>
-            <label for="passenger">Select Passenger</label>
-            <select name="passenger">
-                {% for passenger in passengers %}
-                    <option value="{{ passenger.id }}">{{ passenger.last_name }}</option>
-                {% endfor %}
-            </select>
-            <label for="flight">Select Flight</label>
-            <select name="flight">
-                {% for flight in flights %}
-                    <option value="{{ flight.id }}">{{ flight }}</option>
-                {% endfor %}
-            </select>
-            <label for="seat">Select Seat</label>
-            <select name="seat">
-                {% for seat in seats %}
-                    <option value="{{ seat.id }}">{{ seat }}</option>
-                {% endfor %}
-            </select>
-            
-            <input type="submit" value="Submit">
-        </form>
-    </div>
     <h1>Manage Account</h1>
-    <form class="passenger-form" action="/add_passenger" method="post">
+    <form class="passenger-form" name="passengers">
         <h1>Add passenger</h1>
         <label for="first">First Name</label>
         <input type="text" name="first">
@@ -49,6 +23,8 @@
         <input type="text" name="passport">
         <label for="age">Age</label>
         <input type="text" name="age">
-        <input type="submit" value="Submit">
+        <input name="add" type="submit" value="Submit">
     </form>
+
+<script src="{{url_for('static', filename='account.js')}}"></script>
 {% endblock body %}

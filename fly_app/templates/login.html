@@ -3,12 +3,14 @@
 {% block body %}
 <h1>Login</h1>
 
-<form class="login-form" action="/login" method="post">
+<form class="login-form" name="login" method="post">
     <label for="email">Email</label>
     <input type="email" name="email">
     <label for="password">Password</label>
     <input type="password" name="password">
-    <input type="submit" value="Submit">
+    <span class="error" aria-live="polite"></span>
+    <input type="submit" name="submit" value="Submit" disabled>
 </form>
 
+<script src="{{url_for('static', filename='login.js')}}"></script>
 {% endblock body %}
