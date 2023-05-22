@@ -1,16 +1,18 @@
 {% extends 'base.html' %}
-{% block title %}Registration{% endblock title %}
+{% block title %}Sign Up{% endblock title %}
 {% block body %}
 
 <h1>Register</h1>
-<form class="registration-form" action="/registration" method="post">
+<form class="registration-form" name="register" method="post">
     <label for="email">Email</label>
-    <input type="email" name="email">
+    <input type="email" name="email" required>
     <label for="password">Password</label>
-    <input type="password" name="password">
+    <input type="password" name="password" required minlength="8" maxlength="16">
     <label for="password">Confirm Password</label>
-    <input type="password" name="submit-password">
-    <input type="submit" value="Submit">
+    <input type="password" name="confirm" required minlength="8" maxlength="16">
+    <span class="error" aria-live="polite"></span>
+    <input type="submit" name="submit" value="Submit" disabled>
 </form>
 
+<script src="{{url_for('static', filename='validators.js')}}"></script>
 {% endblock body %}

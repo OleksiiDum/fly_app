@@ -6,7 +6,7 @@ import os
 secret_key = os.urandom(12)
 
 app = Flask(__name__)
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///fly.db"
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///fly2.db"
 app.config['SECRET_KEY'] = secret_key
 db = SQLAlchemy(app)
 

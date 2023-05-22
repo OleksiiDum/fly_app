@@ -5,6 +5,17 @@ from functools import wraps
 from flask import session
 
 
+# Geolocation and Path
+# geolocator = Nominatim(user_agent="MyApp")
+
+# kyiv_location = geolocator.geocode("Kyiv")
+# berlin_location = geolocator.geocode("Berlin")
+
+# path = distance((kyiv_location.latitude, kyiv_location.longitude), (berlin_location.latitude, berlin_location.longitude))
+
+# #Price
+# base_price = path * 0.25
+
 def distance(coord1, coord2):
     # Coordinates are given as (latitude, longitude) tuples
     lat1, lon1 = coord1

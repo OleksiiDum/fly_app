@@ -51,9 +51,10 @@ class Passanger(db.Model):
     nationality = db.Column(db.String, nullable=False) 
     passport = db.Column(db.String, unique=True, nullable=False)
     age = db.Column(db.Integer)
+    account_id = db.Column(db.Integer, db.ForeignKey('accounts.id'), nullable=True)
 
     def __repr__(self):
-        return f'{self.first_name} {self.last_name}. Is: {self.nationality}. Id:{self.id}'
+        return f'{self.first_name} {self.last_name}. Is: {self.nationality}. Age:{self.age}'
     
 
 class Account(db.Model):
