@@ -9,9 +9,10 @@ body {
     background-color: #e7ecf3;
   }
 
-h1 {
+h1, h2 {
     font-family: 'Lora', serif;
     margin: 1rem auto;
+    margin-bottom: 0rem;
     color: #2e196a;
     text-align: center;
 }
@@ -22,7 +23,7 @@ form {
     display: flex;
     flex-direction: column;
     gap: 0.4rem;
-    width: 80%;
+    width: 70%;
     margin: 2rem auto;
     /* border: 1px solid #222; */
 }
@@ -185,6 +186,32 @@ input[type=submit] {
     background-color: #222222c2;
     z-index: 9000;
 }
+
+/*----------ACCOUNT PAGE---------*/
+.passengers-header {
+    width: 60%;
+    margin: 0 auto;
+    text-decoration: underline;
+    text-decoration-color: #2e196a;
+    /* border-bottom: 2px solid #180945; */
+    margin-bottom: 1rem;
+}
+
+.passengers-list {
+    width: 60%;
+    margin: 0 auto;
+    text-align: center;
+    font-size: 2rem;
+    color: #180945;
+}
+
+.passengers-list li {
+    list-style: none;
+    /* border-bottom: 5px solid #180945;
+    border-radius: 5px; */
+}
+
+/*----------ADMIN------------*/
 
 .manage-airports, .manage_flights, .manage_products {
     display: flex;

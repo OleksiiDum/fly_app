@@ -11,21 +11,45 @@
     <img class="mySlides" src="../static/nyc.png" >
     <div class="flight-choose">
         <div class="booking-tabs">
-            <button class="tabs active">Select Flight</button>
-            <button class="tabs">Select Passengers</button>
-            <button class="tabs">Payment method</button>
-            <button class="tabs">Confirm Flight</button>
+            <button class="tabs flights active">Select Flight</button>
+            <button class="tabs passengers">Select Passengers</button>
+            <button class="tabs payments">Payment method</button>
+            <button class="tabs confirm">Confirm Flight</button>
         </div>
-        <form>
+        <form class="form" name="flights">
             <select name="from" id="from">
-                <option value="airport">Airport1</option>
+                {% if airports %}
+                {% for airport in airports %}
+                <option value="airport">{{ airport }}</option>
+                {% endfor %}
+                {% endif %}
             </select>
             <select name="to" id="to">
-                <option value="airport">Airport2</option>
+                {% for airport in airports %}
+                <option value="airport">{{ airport }}</option>
+                {% endfor %}
             </select>
-            <input type="number" name="quantity" id="quantity">
+            <input type="number" min="0" max="10" name="quantity" id="quantity">
             <input type="date">
             <input type="date">
+            <input type="submit" value="Submit">
+        </form>
+        <form class="form hidden" name="passengers">
+            <select name="passengers" id="passenger">
+                <option value="airport">Passenger1</option>
+            </select>
+            <input type="submit" value="Submit">
+        </form>
+        <form class="form hidden" name="payment">
+            <input type="password" name="card" id="card">
+            <input type="date" name="year" id="year">
+            <input type="month" name="month" id="month">
+            <input type="text" name="day" id="day">
+            <input type="text" name="code" id="code">
+            <input type="submit" value="Submit">
+        </form>
+        <form class="form hidden" name="confirm">
+            <input type="checkbox" name="check" id="check">
             <input type="submit" value="Submit">
         </form>
     </div>

@@ -5,7 +5,8 @@ from fly_app import helpers
 
 @app.route('/')
 def main_page():
-    return render_template("index.html")
+    all_airports = get_all_airports(request)
+    return render_template("index.html", airports=all_airports)
     
 @app.route('/registration_page')
 def registration_page():
@@ -17,10 +18,8 @@ def login_page():
 
 @app.route('/account_page')
 def account_page():
-    all_flights = get_all_flights(request)
-    all_tickets = get_tickets(request)
     all_passengers = get_all_passengers(request)
-    return render_template('account.html', flights=all_flights, tickets=all_tickets, passengers=all_passengers)
+    return render_template('account.html', passengers=all_passengers)
 
 @app.route('/admin_page')
 @helpers.admin

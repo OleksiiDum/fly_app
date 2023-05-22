@@ -32,13 +32,17 @@ def manage_airport(request):
 def get_all_airports(request):
     if request.method == "GET":
         all_airports = Airport.query.all()
-        return jsonify(all_airports)
+        if all_airports:
+            print(list(all_airports))
+            return all_airports
+        else:
+            return []
 
 #USER
 def get_all_users(request):
     if request.method == "GET":
         all_users = Account.query.all()
-        return all_users
+        return jsonify(all_users)
 
 def login_user(request):
     if request.method == "POST":
@@ -51,12 +55,13 @@ def login_user(request):
                     session["admin"] = True
             if helpers.hashed(user_password) == db_user.password:
                 session['email']  = db_user.email
-                return jsonify({"OK": True})
+                return jsonify({"status": True})
             else:
-                return jsonify({"OK": False, "Status": "password incorrect"})
+                return jsonify({"status": False, "message": "password incorrect"})
         else:
-            return jsonify({"OK": False, "Status": "user not found"})
-        
+            return jsonify({"status": False, "message": "user not found"})
+    else:
+        return  jsonify({"message": "Wrong method"})
 
 def logout_user(request):
     session.clear()
@@ -65,19 +70,23 @@ def logout_user(request):
 # registration controller
 def register_user(request):
     if request.method == "POST":
-        users = Account.query.all()
+        user = Account.query.filter_by(email=request.form.get("email"))
         email = request.form.get("email")
         password = request.form.get("password")
-        if not email in users:
-            user = Account(email=email, password=helpers.hashed(password))
+        if user:
+            return jsonify({"message": "User exists"})
+        else:
+            new_user = Account(email=email, password=helpers.hashed(password))
             hash = helpers.randome_code()
-            db.session.add(user)
+            db.session.add(new_user)
             db.session.commit()
             authcode = Authcode(code=hash, userid = user.id)
             db.session.add(authcode)
             db.session.commit()
             url = url_for('verify', email=email, hash=hash)
             Mailer(user.email, url, 'Test').send_text_mail()
+    else:
+        return  jsonify({"message": "Wrong method"})
     return jsonify({"message": "OK"})
 
 def verify_user(request, email, hash):
@@ -87,9 +96,9 @@ def verify_user(request, email, hash):
         user.verified = True
         db.session.add(user)
         db.session.commit()
-        return "Verified"
+        return jsonify({"message": "Verified"})
     else:
-        return "Error"
+        return jsonify({"message": "Error"})
 
 #PASSENGER
 def create_passenger(request):
@@ -99,20 +108,37 @@ def create_passenger(request):
         nationality = request.form.get('nationality')
         passport = request.form.get('passport')
         age = request.form.get('age')
-        account_id = Account.query.filter_by(email=session["email"]).first().id
+        email = session["email"]
+        account_id = Account.query.filter_by(email=email).first().id
         passenger = Passanger(first_name=first_name, last_name=last_name, nationality=nationality, passport=passport, age=age, account_id=account_id)
         db.session.add(passenger)
         db.session.commit()
-        return "Done"
+        passengers = get_users_passengers(account_id)
+        return  jsonify(passengers)
     else:
-        return "Wrong method"
+        return  jsonify({"message": "Wrong method"})
 
 def get_all_passengers(request):
     if request.method  == "GET":
         passengers = Passanger.query.all()
         return passengers
     else:
-        return "Wrong method"
+        return jsonify({"message": "Wrong method"})
+
+def get_users_passengers(id):
+    passengers = Passanger.query.filter_by(account_id=id)
+    result = []
+    for passenger in passengers:
+        result.append({
+            "first_name": passenger.first_name,
+            "last_name": passenger.last_name
+        })
+    return result
+
+def get_passenger(request):
+    if request.method == "GET":
+        passenger = Passanger.query.filter_by(email=request.email)
+        return jsonify({"passenger": passenger})
 
 #FLIGHT
 def create_flight(request):
@@ -130,12 +156,12 @@ def create_flight(request):
         db.session.commit()
         return redirect(url_for('admin'))
     else:
-        return "Wrong Request Method"
+        return jsonify({"message": "Wrong method"})
     
 def get_all_flights(request):
     if request.method =="GET":
         flights = Flight.query.all()
-        return flights
+        return jsonify(flights)
     
 def manage_flight(request):
     if  request.method == "DELETE":
@@ -155,7 +181,7 @@ def create_ticket(request):
     ticket = Ticket(passenger=passenger, flight=flight, seat=seat, baggage = baggage)
     db.session.add(ticket)
     db.session.commit()
-    return "Done"
+    return jsonify({"message": "Done"})
 
 def get_tickets(request):
     if request.method == "GET":

@@ -15,14 +15,21 @@ document.body.style.backgroundSize = "cover";
 
 form.addEventListener('submit', async(event)=> {
     event.preventDefault();
-    console.log("OK");
     let response = await fetch('/register', {
         method: 'POST',
         body: new FormData(form)
       });
   
       let result = await response.json();
-      location.assign(location.origin + "/login_page");
+      console.log(result);
+      if (result.message == "OK") {
+        location.assign(location.origin + "/login_page");
+      } else {
+        form.reset();
+        errorSpan.innerHTML = result.message;
+        errorSpan.style.background = "pink";
+      };
+      
 });
 
 email.addEventListener('input', (event)=> {
@@ -37,11 +44,15 @@ confirmPass.addEventListener('input', (event)=> {
     confirmPassword(event.target.value);
 });
 
+function cleanSpan(){
+    errorSpan.innerHTML = ' ';
+    errorSpan.background = 'none';
+};
+
 function validateEmail(text){
     if (emailExp.test(text) == true){
         email.style.background = "#fff";
-        errorSpan.innerHTML = ' ';
-        errorSpan.background = 'none';
+        cleanSpan();
         emailValidation = true;
         return true;
     }
@@ -60,7 +71,7 @@ function validateEmail(text){
 
 function validatePassword(text){
     if(passwordExp.test(text) == true){
-        errorSpan.innerHTML = '';
+        cleanSpan();
         return true;
     }else{
         errorSpan.style.display = "inline";
@@ -72,6 +83,7 @@ function validatePassword(text){
 
 function confirmPassword(text){
     if(text.match(password.value)){
+        cleanSpan();
         errorSpan.innerHTML = 'Password Match';
         errorSpan.style.background = "none";
         if(emailValidation){

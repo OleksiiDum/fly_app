@@ -21,11 +21,11 @@ form.addEventListener('submit', async(event)=> {
       });
   
       let result = await response.json();
-      if( result.OK == true){
+      if( result.status == true){
         location.assign(location.origin);
       } else{
         form.reset();
-        errorSpan.innerHTML = result.Status;
+        errorSpan.innerHTML = result.message;
       }
 });
 
