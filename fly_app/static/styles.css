@@ -188,6 +188,11 @@ input[type=submit] {
 }
 
 /*----------ACCOUNT PAGE---------*/
+
+.passenger-form {
+    width: 50%;
+}
+
 .passengers-header {
     width: 60%;
     margin: 0 auto;

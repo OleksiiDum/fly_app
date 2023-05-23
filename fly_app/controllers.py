@@ -15,7 +15,7 @@ def create_airport(request):
         airport = Airport(country=country, city=city, airport_name=airport_name, timezone=timezone)
         db.session.add(airport)
         db.session.commit()
-        return redirect(url_for('admin'))
+        return redirect(url_for('admin_page'))
 
 def manage_airport(request):
     if request.method == "DELETE":
@@ -42,7 +42,7 @@ def get_all_airports(request):
 def get_all_users(request):
     if request.method == "GET":
         all_users = Account.query.all()
-        return jsonify(all_users)
+        return all_users
 
 def login_user(request):
     if request.method == "POST":
@@ -66,6 +66,14 @@ def login_user(request):
 def logout_user(request):
     session.clear()
     return render_template('index.html')
+
+def get_user_info(id):
+    user = Account.query.filter_by(id=id).first()
+    if not user:
+        return jsonify({"message": "Not valid ID"})
+    passengers = get_users_passengers(id)
+    user_info = {"user": user.email, "passengers": passengers}
+    return jsonify(user_info)
 
 # registration controller
 def register_user(request):
@@ -161,7 +169,7 @@ def create_flight(request):
 def get_all_flights(request):
     if request.method =="GET":
         flights = Flight.query.all()
-        return jsonify(flights)
+        return flights
     
 def manage_flight(request):
     if  request.method == "DELETE":

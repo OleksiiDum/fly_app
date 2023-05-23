@@ -1,6 +1,6 @@
 from flask import render_template, url_for, request
 from fly_app import app
-from fly_app.controllers import create_airport, get_all_airports, get_all_users, register_user, login_user, verify_user, create_flight, create_product, manage_flight, manage_product, manage_airport, get_all_flights, get_all_products, create_passenger, create_ticket, get_tickets, get_all_passengers, logout_user
+from fly_app.controllers import create_airport, get_all_airports, get_all_users, register_user, login_user, verify_user, create_flight, create_product, manage_flight, manage_product, manage_airport, get_all_flights, get_all_products, create_passenger, create_ticket, get_tickets, get_all_passengers, logout_user, get_user_info
 from fly_app import helpers
 
 @app.route('/')
@@ -41,6 +41,10 @@ def login():
 @app.route('/logout')
 def logout():
     return logout_user(request)
+
+@app.route('/user_info/<id>')
+def user_info(id):
+    return get_user_info(id)
 
 @app.route('/verifycation/<email>/<hash>')
 def verify(email, hash):

@@ -19,7 +19,6 @@ form.addEventListener("submit", (event)=>{
         method: 'POST',
         body: formData
       });
-    //   console.log(...formData);
     response.then(r=>r.json()).then((passengers)=>{
         passengersList.innerHTML = null;
         console.log(passengers);
