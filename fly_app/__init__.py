@@ -1,6 +1,7 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 import os
+from fly_app.routes import airports_bp, passengers_bp, flights_bp
 
 
 secret_key = os.urandom(12)
@@ -8,7 +9,11 @@ secret_key = os.urandom(12)
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///fly2.db"
 app.config['SECRET_KEY'] = secret_key
+app.register_blueprint(airports_bp)
+app.register_blueprint(passengers_bp)
+app.register_blueprint(flights_bp)
 db = SQLAlchemy(app)
+# login = LoginManager(app)
 
 
 from fly_app import routes

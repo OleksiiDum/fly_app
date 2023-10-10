@@ -1,236 +1,398 @@
-@import url('https://fonts.googleapis.com/css2?family=Lora:wght@400;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Lora:wght@400;700&display=swap");
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-    background-color: #e7ecf3;
-  }
+  background-color: #e7ecf3;
+}
 
-h1, h2 {
-    font-family: 'Lora', serif;
-    margin: 1rem auto;
-    margin-bottom: 0rem;
-    color: #2e196a;
-    text-align: center;
+h1,
+h2 {
+  font-family: "Lora", serif;
+  margin: 1rem auto;
+  margin-bottom: 0rem;
+  color: #2e196a;
+  text-align: center;
 }
 
 form {
-    /* padding: 1rem; */
-    /* margin-top: 3rem; */
-    display: flex;
-    flex-direction: column;
-    gap: 0.4rem;
-    width: 70%;
-    margin: 2rem auto;
-    /* border: 1px solid #222; */
+  /* padding: 1rem; */
+  /* margin-top: 3rem; */
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  width: 70%;
+  margin: 2rem auto;
+  /* border: 1px solid #222; */
+}
+
+input {
+  height: 2rem;
+  font-size: 0.9rem;
+  border-radius: 0.2rem;
+  border: 0.4px solid #beb5da;
+}
+
+input[type="submit"] {
+  height: 2rem;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  border-radius: 0.2rem;
+  border: 0.4px solid #beb5da;
+  background-color: #2e196a;
+  color: #bac6e5ef;
+}
+
+input[type="submit"]:hover,
+.dateBtn {
+  cursor: pointer;
+  /* font-size: larger; */
+  color: #fff;
+  background-color: #2a175f;
 }
 
 button.active {
-    background-color: #2e196a;
-    color: #e7ecf3;
+  background-color: #2e196a;
+  color: #e7ecf3;
 }
 
-/*--------NAV BAR---------------*/
+/*------------NAV BAR---------------*/
 
 nav {
-    font-family: 'Lora', serif;
-    font-weight: 700;
-    height: 10rem;
-    border-top: 5px  solid rgb(46, 25, 106);
-    display: flex;
-    align-items: center;
-    /* gap: 2rem; */
-    justify-content: space-around;
+  font-family: "Lora", serif;
+  font-weight: 700;
+  height: 10rem;
+  border-top: 5px solid rgb(46, 25, 106);
+  display: flex;
+  align-items: center;
+  /* gap: 2rem; */
+  justify-content: space-around;
 }
 
 .logo {
-    position: absolute;
-    top: 7px;
-    left: 2px;
-    width: 100px;
-    height: 100px;
+  position: absolute;
+  top: 7px;
+  left: 2px;
+  width: 100px;
+  height: 100px;
 }
 
 .nav-menu {
-    display: flex;
-    flex-direction: row;
-    gap: 1rem;
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
 }
 
 .nav-menu a {
-    color: #2e196a;
-    text-transform: uppercase;
-    text-decoration: none;
-    font-size: 1rem;
+  color: #2e196a;
+  text-transform: uppercase;
+  text-decoration: none;
+  font-size: 1rem;
 }
 
 .nav-menu a:hover {
-    border-bottom: 3px solid #2e196a;
-    transition: 0.1s;
+  border-bottom: 3px solid #2e196a;
+  transition: 0.1s;
 }
 
 /*----------CAROUSEL--------*/
 
 img {
-    width: 750px;
-    height: 450px;
+  width: 750px;
+  height: 450px;
 }
 
 .slide-show {
-    margin: 0 auto;
-    display: block;
-    width: 750px;
-    height: 450px;
-    border-top: 15px solid rgb(46, 25, 106);
+  margin: 0 auto;
+  margin-bottom: 10rem;
+  display: block;
+  width: 750px;
+  height: 450px;
+  border-top: 15px solid rgb(46, 25, 106);
 }
 
 .flight-choose {
-    position: absolute;
-    top: 18rem;
-    right: 30%;
-    width: 500px;
-    height: 300px;
-    background-color: #bac6e5cd;
-    margin: 0 auto;
+  position: absolute;
+  top: 18rem;
+  right: 30%;
+  width: 500px;
+  height: 300px;
+  background-color: #bac6e5cd;
+  margin: 0 auto;
 }
 
 /*-------BOOKING--------*/
 
 .booking-tabs {
-    width: 100%;
-    height: 10%;
-    font-size: 1rem;
-    border: 1px solid #ccc;
-    background-color: #bac6e5ef
+  width: 100%;
+  height: 10%;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  background-color: #bac6e5ef;
 }
 
 .tabs {
-    padding: 5px;
-    padding-top: 10px;
-    font-size: 1rem;
-    float: left;
-    cursor: pointer;
-    border: none;
-    border-right: 1px solid #ccc;
-    outline: none;
-    background-color: #bac6e5ef;
-    transition: 0.3s;
+  padding: 5px;
+  padding-top: 10px;
+  font-size: 1rem;
+  float: left;
+  cursor: pointer;
+  border: none;
+  border-right: 1px solid #ccc;
+  outline: none;
+  background-color: #bac6e5ef;
+  transition: 0.3s;
 }
 
 .tabs:hover {
-    background-color:  rgba(47, 25, 106, 0.579);
-    color: #bac6e5ef;
+  background-color: rgba(47, 25, 106, 0.579);
+  color: #bac6e5ef;
+}
+
+.inputFrom,
+.inputTo {
+  padding: 0;
+  width: 100%;
+}
+
+.inputFrom input,
+.inputTo input {
+  width: 100%;
+}
+
+.ul {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: fit-content;
+  background-color: #fff;
+}
+
+.calender {
+  position: fixed;
+  margin: 0 auto;
+  top: 18.8rem;
+  left: 27rem;
+  width: 27rem;
+  height: 17rem;
+  background-color: #fff;
+  z-index: 1000;
+}
+
+.calender > .btn {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  width: 1rem;
+  height: 1rem;
+  text-align: center;
+  border-radius: 50%;
+  background-color: #2e196a;
+  color: #fff;
+}
+
+.calender > .btn:hover {
+  cursor: pointer;
+}
+
+.ways {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 2px;
+}
+
+.date {
+  width: 100%;
+}
+
+.dateBtn {
+  height: 2rem;
+  width: 3rem;
+  border: none;
+  color: #e7ecf2;
+}
+
+.date input {
+  width: 85%;
+  margin-right: 3px;
+}
+
+.month {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+
+.day {
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid #000;
+  border-radius: 2px;
+}
+
+.move {
+  width: 100%;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.move input {
+  width: 40%;
+}
+
+.active {
+  background-color: #2a175f;
+  color: #e7ecf2;
+}
+
+.active:hover {
+  cursor: pointer;
+}
+
+/*---------PASSENGER---------*/
+
+button.person,
+.delete {
+  height: 2rem;
+  width: fit-content;
+  padding: 0 1rem;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  border-radius: 0.2rem;
+  border: 0.4px solid #beb5da;
+  background-color: #2e196a;
+  color: #bac6e5ef;
+}
+
+.next-passenger {
+  height: 5rem;
+  overflow-y: scroll;
+}
+
+.next-passenger::-webkit-scrollbar {
+  display: none;
+}
+
+.next-passenger,
+.next-passenger select {
+  width: 100%;
+  margin-bottom: 0.6rem;
+}
+
+/*----------CONTENT-----------*/
+
+.content {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.content h1 {
+  text-decoration: underline;
+  margin-bottom: 0.6rem;
+}
+
+.content p {
+  margin-bottom: 2rem;
+  font-size: 1rem;
 }
 
 /*---------REGISTRATION--------*/
 
 .hidden {
-    display: none;
+  display: none;
 }
 
-.registration-form, .login-form {
-    /* position: fixed;
+.registration-form,
+.login-form {
+  /* position: fixed;
     right: 24rem;
     top: 5rem; */
-    /* margin-top: 1rem; */
-    width: 50%;
-    /* background-color: #222; */
-    z-index: 9999;
+  /* margin-top: 1rem; */
+  width: 50%;
+  /* background-color: #222; */
+  z-index: 9999;
 }
 
-input {
-    height: 2rem;
-    font-size: 0.9rem;
-    border-radius: 0.2rem;
-    border: 0.4px solid #beb5da;
+.login-form {
+  color: #bac6e5ef;
+  font-weight: 600;
 }
 
-input[type=submit] {
-    height: 2rem;
-    text-transform: uppercase;
-    font-size: 0.9rem;
-    border-radius: 0.2rem;
-    border: 0.4px solid #beb5da;
-    background-color:  rgb(46, 25, 106);
-    color: #bac6e5ef;
-}
-
-.login-form { 
-    color: #bac6e5ef;
-    font-weight: 600;
-}
-
-.registration-link, .login-link {
-    margin-right: 0;
-    text-transform: lowercase;
-    text-decoration: underline;
-    font-size: 1rem;
+.registration-link,
+.login-link {
+  margin-right: 0;
+  text-transform: lowercase;
+  text-decoration: underline;
+  font-size: 1rem;
 }
 
 .logout-link {
-    margin: 0;
-    padding-left: 1rem;
-    color: maroon;
-    text-transform: lowercase;
-    text-decoration: none;
-    font-size: 1rem;
+  margin: 0;
+  padding-left: 1rem;
+  color: maroon;
+  text-transform: lowercase;
+  text-decoration: none;
+  font-size: 1rem;
 }
 
 .false-background {
-    position: fixed;
-    height: 100%;
-    width: 100%;
-    background-color: #222222c2;
-    z-index: 9000;
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  background-color: #222222c2;
+  z-index: 9000;
 }
 
 /*----------ACCOUNT PAGE---------*/
 
 .passenger-form {
-    width: 50%;
+  width: 50%;
 }
 
 .passengers-header {
-    width: 60%;
-    margin: 0 auto;
-    text-decoration: underline;
-    text-decoration-color: #2e196a;
-    /* border-bottom: 2px solid #180945; */
-    margin-bottom: 1rem;
+  width: 60%;
+  margin: 0 auto;
+  text-decoration: underline;
+  text-decoration-color: #2e196a;
+  /* border-bottom: 2px solid #180945; */
+  margin-bottom: 1rem;
 }
 
 .passengers-list {
-    width: 60%;
-    margin: 0 auto;
-    text-align: center;
-    font-size: 2rem;
-    color: #180945;
+  width: 60%;
+  margin: 0 auto;
+  text-align: center;
+  font-size: 2rem;
+  color: #180945;
 }
 
 .passengers-list li {
-    list-style: none;
-    /* border-bottom: 5px solid #180945;
+  list-style: none;
+  /* border-bottom: 5px solid #180945;
     border-radius: 5px; */
 }
 
 /*----------ADMIN------------*/
 
-.manage-airports, .manage_flights, .manage_products {
-    display: flex;
-    border-bottom: 1px solid #3f2f2f;
-    gap: 2rem;
+.manage-airports,
+.manage_flights,
+.manage_products {
+  display: flex;
+  border-bottom: 1px solid #3f2f2f;
+  gap: 2rem;
 }
 
 .flights-list {
-    border: 1px solid #180945;
-    background-color: #beb5da;
+  border: 1px solid #180945;
+  background-color: #beb5da;
 }
 
 .flight-item {
-    margin: 0.2px;
-    padding: 0.4px;
-    border: 0.4px solid #504c4c;
+  margin: 0.2px;
+  padding: 0.4px;
+  border: 0.4px solid #504c4c;
 }

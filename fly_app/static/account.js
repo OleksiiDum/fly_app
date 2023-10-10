@@ -29,6 +29,7 @@ form.addEventListener("submit", (event)=>{
         }
         form.reset();
     });
+    renderPassengerList();
 });
 
 fName.addEventListener('input', (event)=> {
@@ -113,3 +114,19 @@ function validateAge(text){
         return true;
     }
 }
+
+function renderPassengerList(){
+    passengersList.innerHTML = null;
+    fetch('/user_info/')
+    .then((response)=>response.json())
+    .then((data)=>{
+        for(let p of data.passengers){
+            let text = p.last_name + '|' + p.first_name;
+            let li = document.createElement('li');
+            li.textContent = text;
+            passengersList.append(li);
+        }
+    })
+}
+
+renderPassengerList();

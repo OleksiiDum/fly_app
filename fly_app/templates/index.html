@@ -1,60 +1,160 @@
-{% extends 'base.html' %}
-{% block title %}Main{% endblock title %}
-{% block body %}
+{% extends 'base.html' %} {% block title %}Main{% endblock title %} 
 
-
-
-
+{% block nav %}
+<div class="nav-menu">
+  <a href="#why">Why Lux Flights?</a>
+  <a href="#our">Our guided tours</a>
+  <a href="#rent">Rent</a>
+  <a href="#vip">VIP Club</a>
+</div>
+{% endblock nav %}
+{% block body %} 
 <div class="slide-show">
-    <img class="mySlides" src="../static/paris.png" >
-    <img class="mySlides" src="../static/london.png" >
-    <img class="mySlides" src="../static/nyc.png" >
-    <div class="flight-choose">
-        <div class="booking-tabs">
-            <button class="tabs flights active">Select Flight</button>
-            <button class="tabs passengers">Select Passengers</button>
-            <button class="tabs payments">Payment method</button>
-            <button class="tabs confirm">Confirm Flight</button>
-        </div>
-        <form class="form" name="flights">
-            <select name="from" id="from">
-                {% if airports %}
-                {% for airport in airports %}
-                <option value="airport">{{ airport }}</option>
-                {% endfor %}
-                {% endif %}
-            </select>
-            <select name="to" id="to">
-                {% for airport in airports %}
-                <option value="airport">{{ airport }}</option>
-                {% endfor %}
-            </select>
-            <input type="number" min="0" max="10" name="quantity" id="quantity">
-            <input type="date">
-            <input type="date">
-            <input type="submit" value="Submit">
-        </form>
-        <form class="form hidden" name="passengers">
-            <select name="passengers" id="passenger">
-                <option value="airport">Passenger1</option>
-            </select>
-            <input type="submit" value="Submit">
-        </form>
-        <form class="form hidden" name="payment">
-            <input type="password" name="card" id="card">
-            <input type="date" name="year" id="year">
-            <input type="month" name="month" id="month">
-            <input type="text" name="day" id="day">
-            <input type="text" name="code" id="code">
-            <input type="submit" value="Submit">
-        </form>
-        <form class="form hidden" name="confirm">
-            <input type="checkbox" name="check" id="check">
-            <input type="submit" value="Submit">
-        </form>
+  <img class="mySlides" src="../static/paris.png" />
+  <img class="mySlides" src="../static/london.png" />
+  <img class="mySlides" src="../static/nyc.png" />
+  <div class="flight-choose">
+    <div class="booking-tabs">
+      <button class="tabs flightsTab active">Flight</button>
+      <button class="tabs passengersTab">Passengers</button>
+      <button class="tabs seatsTab">Seat</button>
+      <button class="tabs paymentsTab">Payment</button>
+      <button class="tabs confirmAllTab">Confirm</button>
     </div>
+    <form class="form" name="flights">
+      <div class="inputFrom">
+        <input name="from" type="text" placeholder=" from city" />
+        <ul class="ul"></ul>
+      </div>
+      <div class="inputTo">
+        <input name="to" type="text" placeholder=" to city" />
+        <ul class="ul"></ul>
+      </div>
+      <div class="date">
+        <input type="text" name="date" placeholder=" select date" /><button
+          class="dateBtn"
+        >
+          Select
+        </button>
+      </div>
+      <div class="calender hidden">
+        <div class="btn">x</div>
+        <div class="ways"><button>Return</button><button>One Way</button></div>
+        <div class="month"></div>
+      </div>
+      <span class="info-span"></span>
+      <input name="submit" type="submit" value="Next" disabled />
+    </form>
+    <form class="form hidden" name="passengers">
+      <div class="next-passenger">
+      <select name="passengers" id="passenger">
+        
+      </select>
+      </div>
+      <button class="person">+</button>
+      <span class="info-span"></span>
+      <div class="move">
+        <input name="back" type="submit" value="Back" />
+        <input name="submit" type="submit" value="Next" />
+      </div>
+    </form>
+    <form class="form hidden" name="seats">
+      <span></span>
+      <div class="seats"></div>
+      <div class="move">
+        <input name="back" type="submit" value="Back" />
+        <input name="submit" type="submit" value="Next" />
+      </div>
+    </form>
+    <form class="form hidden" name="payments">
+      <input type="password" name="card" id="card" />
+      <input type="date" name="year" id="year" />
+      <input type="month" name="month" id="month" />
+      <input type="text" name="day" id="day" />
+      <input type="text" name="code" id="code" />
+      <span class="info-span"></span>
+      <div class="move">
+        <input name="back" type="submit" value="Back" />
+        <input name="submit" type="submit" value="Next" />
+      </div>
+    </form>
+    <form class="form hidden" name="confirmAll">
+      <input type="checkbox" name="check" id="check" />
+      <input name="back" type="submit" value="Back" />
+      <input type="submit" value="Submit" />
+    </form>
+  </div>
+</div>
 
+<div class="content">
+  <p id="why">
+    <h1>Why Lux Flight?</h1>
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam nulla cum sequi tenetur deserunt rem, quo obcaecati ducimus laboriosam pariatur iure nesciunt quis laudantium provident magni quam optio deleniti fuga.
+    Consequatur provident nobis ipsa eos? Fugiat, magnam! Culpa accusamus, ea rem corrupti nihil rerum sunt placeat molestiae ipsam. Quidem sit vero optio dignissimos itaque ab ratione ullam hic reprehenderit magni?
+    Sed vero eius quisquam reprehenderit quasi dolorem, rem consequatur laborum modi, aliquam soluta. Amet eligendi enim earum, tenetur voluptatum fugiat nihil odio doloremque eaque nesciunt aut eos! Esse, dolorum error.
+    Dicta unde iure distinctio perferendis ratione sequi ut quasi, quia totam fugit soluta? Accusantium repellat eos aliquam quod perferendis odit perspiciatis quaerat dolor voluptatibus earum aspernatur dolorem, dolorum sint beatae.
+    Impedit minus beatae, recusandae nam possimus expedita incidunt amet animi facere. Quibusdam ad quia deserunt quam recusandae, dicta ipsa rerum repellat corporis dolorem debitis rem! Itaque odit architecto quia alias!
+  </p>
+  <p id="our">
+    <h1>Our Guided Tours</h1>
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur esse,
+    sed suscipit fuga ad necessitatibus facilis sit odio corporis, modi ex minus
+    laudantium facere dolore repudiandae dolores, nemo sint animi! Suscipit
+    rerum doloribus corrupti iste soluta reiciendis nemo accusantium eius
+    tempore ipsum! Minus cum quae eius sunt aut fugiat. Natus molestiae atque
+    ipsam debitis qui nemo alias ut, molestias reiciendis. Corrupti porro natus
+    eligendi possimus minus laboriosam quidem iure repudiandae laudantium!
+    Mollitia nesciunt sunt deserunt dolorem commodi nam vitae ab blanditiis ea?
+    Sint, excepturi in numquam optio inventore blanditiis minus. Consectetur non
+    repellat, et vero laborum nostrum atque sit tempora tempore deleniti dolore
+    eveniet! Laboriosam, error sequi magni delectus, quod, explicabo tempore
+    molestiae similique ducimus nobis hic esse numquam beatae. Repellat fugiat
+    voluptatibus quod quidem recusandae quis molestias exercitationem, earum
+    aliquam tenetur obcaecati maiores minima ipsam laudantium iure iusto aut,
+    nostrum sit ab. Libero obcaecati facere vitae nesciunt repellat nemo?
+  </p>
+  <p id="rent">
+    <h1>Rent a Car</h1>
+    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestias dolorum
+    autem numquam iure provident in praesentium, culpa veniam maxime dolorem
+    nisi velit voluptate nemo accusantium at quasi, inventore sed tempora.
+    Pariatur quam voluptatum eum fugiat saepe sed cumque tempora reiciendis
+    alias tempore nihil voluptate dolore, velit porro necessitatibus, distinctio
+    perspiciatis id dolores consectetur inventore enim impedit nesciunt ullam?
+    In, est! Aspernatur, a et quibusdam illo voluptatibus similique saepe neque.
+    Cumque, assumenda. Quo tenetur nisi itaque necessitatibus saepe. Ab nesciunt
+    temporibus reiciendis, dignissimos harum sit tempore natus non. Consectetur,
+    architecto est! Provident aliquam temporibus earum reiciendis voluptatum
+    harum distinctio repudiandae ratione aut molestiae, deserunt doloribus
+    suscipit illum corrupti hic quidem minus saepe voluptatibus, magnam
+    blanditiis ipsum nemo sit? Ipsam, rem ipsa. Quisquam corporis quam nulla
+    esse aliquam, ab ut est. Culpa quaerat blanditiis ullam eligendi omnis
+    aliquid similique harum impedit iure tenetur cum itaque porro repellat,
+    cumque officiis quibusdam officia ex. Sint facere culpa provident animi
+    quidem laborum eveniet minus quis doloremque hic eaque laboriosam deleniti
+    aperiam, enim repellat tenetur sit minima! Voluptatibus nihil harum
+    consequatur veritatis culpa exercitationem esse animi? Doloremque ullam,
+    tempora odio officiis cupiditate, sint ut ipsam assumenda nulla unde dolore
+    perferendis excepturi sed iusto quae libero? Id, corrupti quia aliquam
+    quibusdam obcaecati iure! Eos ipsam aliquid eveniet.
+  </p>
+  <p id="vip">
+    <h1>VIP Club</h1>
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. At quam veniam
+    magni ab, unde doloremque sunt nisi laborum reiciendis nobis ut molestiae
+    odio quos et asperiores hic, non sed soluta. Iste, at sed autem molestiae
+    maxime animi aliquam earum, quod cumque incidunt nostrum voluptate accusamus
+    obcaecati rerum modi veritatis! Dolorum non consequuntur fugiat illo eaque
+    voluptate! Ullam nesciunt amet perferendis? Dolorem quis sed doloremque
+    laboriosam quisquam voluptatibus, recusandae excepturi odit ducimus dolor,
+    officiis voluptatum dolore minima suscipit aspernatur id nisi. Harum
+    deleniti adipisci ullam omnis sapiente necessitatibus, voluptate sed dolore?
+  </p>
 </div>
 
 <script src="{{url_for('static', filename='main.js')}}"></script>
+<script src="{{url_for('static', filename='search-flight.js')}}"></script>
+<script src="{{url_for('static', filename='calender.js')}}"></script>
+<script src="{{url_for('static', filename='passengers.js')}}"></script>
+<script src="{{url_for('static', filename='main-validator.js')}}"></script>
 {% endblock body %}

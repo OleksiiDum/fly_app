@@ -23,7 +23,11 @@
         <label for="last">Last Name</label>
         <input type="text" name="last" required>
         <label for="nationality">Nationality</label>
-        <input type="text" name="nationality" required>
+        <select name="nationality" id="nationality">
+            {% for nationality in nationalities %}
+                <option value="nationality">{{ nationality }}</option>
+            {% endfor %}
+        </select>
         <label for="passport">Passport</label>
         <input type="text" name="passport" required minlength="8" maxlength="100">
         <label for="age">Age</label>

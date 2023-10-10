@@ -11,12 +11,8 @@
 <body>
     <nav>
         <a class="logo-link" href="{{ url_for('main_page') }}"><img class="logo" src="../static/logo.png" ></a>
-        <div class="nav-menu">
-            <a href="#">Why Lux Flights?</a>
-            <a href="#">Our guided tours</a>
-            <a href="#">Rent</a>
-            <a href="#">VIP Club</a>
-        </div>
+        {% block nav %}
+        {% endblock nav %}
         <div>
             {% if not 'email' in session %}
             <a class="registration-link" href="{{ url_for('registration_page')  }}">Sign Up</a> /
@@ -36,7 +32,6 @@
     </nav>
     
     <div class="false-background hidden"></div>
-    {% block body %}{% endblock %}
-    <script src="{{url_for('static', filename='base.js')}}"></script>
+    {% block body %}{% endblock body %}
 </body>
 </html>

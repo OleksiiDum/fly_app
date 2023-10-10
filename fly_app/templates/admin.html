@@ -20,7 +20,7 @@
         <label for="airport">Airport</label>
         <select name="airport">
             {% for airport in airports %}
-                <option value="{{ airport.id }}">{{ airport }}</option>
+                <option value="{{ airport.id }}">{{ airport['city'] + ' ' + airport['country'] }}</option>
             {% endfor %}
         </select>
         <input type="submit" value="Submit">
@@ -33,19 +33,19 @@
         <label for="from-airport">From Airport</label>
         <select name="from-airport">
             {% for airport in airports %}
-                <option value="{{ airport }}">{{ airport }}</option>
+                <option value="{{ airport['city'] }}">{{ airport['city'] }}</option>
             {% endfor %}
         </select>
         <label for="to-airport">From Airport</label>
         <select name="to-airport">
             {% for airport in airports %}
-                <option value="{{ airport }}">{{ airport }}</option>
+                <option value="{{ airport['city'] }}">{{ airport['city'] }}</option>
             {% endfor %}
         </select>
         <label for="dep-time">Departure Time</label>
-        <input type="time" name="dep-time">
+        <input type="date" name="dep-time">
         <label for="arr-time">Arrival Time</label>
-        <input type="time" name="arr-time">
+        <input type="date" name="arr-time">
         <input type="submit" value="Submit">
     </form>
     
