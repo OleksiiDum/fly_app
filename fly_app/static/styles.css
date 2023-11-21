@@ -62,14 +62,20 @@ button.active {
 /*------------NAV BAR---------------*/
 
 nav {
+  position: fixed;
+  top: 0;
+  background-color: #e7ecf3dd;
+  z-index: 10000;
   font-family: "Lora", serif;
   font-weight: 700;
   height: 10rem;
+  width: 100%;
   border-top: 5px solid rgb(46, 25, 106);
   display: flex;
   align-items: center;
   /* gap: 2rem; */
   justify-content: space-around;
+  box-shadow: 0px 15px 15px -15px #111;
 }
 
 .logo {
@@ -89,12 +95,12 @@ nav {
 .nav-menu a {
   color: #2e196a;
   text-transform: uppercase;
-  text-decoration: none;
+  text-decoration: underline 3px solid #e7ecf3;
   font-size: 1rem;
 }
 
 .nav-menu a:hover {
-  border-bottom: 3px solid #2e196a;
+  text-decoration-color: #2e196a;
   transition: 0.1s;
 }
 
@@ -106,8 +112,8 @@ img {
 }
 
 .slide-show {
-  margin: 0 auto;
-  margin-bottom: 10rem;
+  margin: 10rem auto;
+  /* margin-bottom: 10rem; */
   display: block;
   width: 750px;
   height: 450px;
@@ -311,7 +317,7 @@ button.person,
   /* position: fixed;
     right: 24rem;
     top: 5rem; */
-  /* margin-top: 1rem; */
+  margin-top: 10rem;
   width: 50%;
   /* background-color: #222; */
   z-index: 9999;
@@ -386,6 +392,10 @@ button.person,
   gap: 2rem;
 }
 
+.manage-airports {
+  padding-top: 10rem;
+}
+
 .flights-list {
   border: 1px solid #180945;
   background-color: #beb5da;
@@ -395,4 +405,8 @@ button.person,
   margin: 0.2px;
   padding: 0.4px;
   border: 0.4px solid #504c4c;
+}
+
+.admin-forms {
+  margin: 1.4rem;
 }

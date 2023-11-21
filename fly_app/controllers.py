@@ -11,23 +11,26 @@ def create_airport(request):
         country = request.form.get("country")
         city = request.form.get("city")
         airport_name = request.form.get("airport_name")
-        timezone = request.form.get("timezone")
-        airport = Airport(country=country, city=city, airport_name=airport_name, timezone=timezone)
+        airport = Airport(country=country, city=city, airport_name=airport_name)
         db.session.add(airport)
         db.session.commit()
         return redirect(url_for('admin_page'))
 
 def manage_airport(request):
-    if request.method == "DELETE":
-        airport_id = request.form.get('id')
+    if request.method == "POST":
+        airport_id = int(request.form['airport'])
         airport_to_delete = Airport.query.filter_by(id=airport_id).first()
         db.session.delete(airport_to_delete)
         db.session.commit()
-        return redirect(url_for('admin'))
-    elif request.method == "GET":
-        airport_id = request.form.get('id')
-        airport = Airport.query.filter_by(id=airport_id).first()
-        return jsonify({"airport": airport})
+        return redirect(url_for('admin_page'))
+
+def manage_flight(request):
+    if  request.method == "POST":
+        flight_id = int(request.form['flight'])
+        flight_to_delete = Flight.query.filter_by(id=flight_id).first()
+        db.session.delete(flight_to_delete)
+        db.session.commit()
+        return redirect(url_for('admin_page'))
 
 def get_all_airports(request):
     if request.method == "GET":
@@ -35,8 +38,9 @@ def get_all_airports(request):
         airports_dict = []
         if all_airports:
             for airport in all_airports:
-                airports_dict.append({"city": airport.city, "country": airport.country, "timezone": airport.timezone})
-            return airports_dict
+                airports_dict.append({"id": airport.id, "city": airport.city, "country": airport.country, "timezone": airport.timezone})
+            print(airports_dict)    
+            return jsonify(airports_dict)
         else:
             return[]
 
@@ -178,12 +182,12 @@ def get_users_passengers(id):
 #FLIGHT
 def create_flight(request):
     if  request.method == "POST":
-        from_airport = request.form.get('from-airport')
-        to_airport = request.form.get('to-airport')
-        departure = request.form.get('dep-time')
-        arrivals = request.form.get('arr-time')
-        print(departure)
-        flight = Flight(from_airport=from_airport, to_airport=to_airport, departure_time=departure, arrivals_time=arrivals)
+        from_airport = request.form.get('from_airport')
+        to_airport = request.form.get('to_airport')
+        departure = request.form.get('dep_time')
+        arrivals = request.form.get('arr_time')
+        price = request.form.get('price')
+        flight = Flight(from_airport=from_airport, to_airport=to_airport, departure_time=departure, arrivals_time=arrivals, standard_price=price)
         db.session.add(flight)
         db.session.commit()
         for seat, type in helpers.generate_seats():
@@ -211,15 +215,6 @@ def get_needed_flight(request):
         else:
             return jsonify({"flight": None, "error": "We have not flights in this direction"})
         
-    
-def manage_flight(request):
-    if  request.method == "DELETE":
-        flight_to_delete = Flight.query.filter_by(id=request.form.get('id')).first()
-        db.session.delete(flight_to_delete)
-        db.session.commit()
-        return redirect(url_for('admin_page'))
-    else:
-        pass
 
 #TICKET   
 def create_ticket(request):
@@ -247,7 +242,7 @@ def create_product(request):
         product = Product(product_name=product_name, description=description, price=price)
         db.session.add(product)
         db.session.commit()
-        return redirect(url_for('admin'))
+        return redirect(url_for('admin_page'))
     else:
         pass
 
@@ -257,10 +252,11 @@ def get_all_products(request):
         return products
     
 def manage_product(request):
-    if  request.method == "DELETE":
-        product_to_delete = Product.query.filter_by(id=request.form.get('id')).first()
+    if  request.method == "POST":
+        product_id = int(request.form['name'])
+        product_to_delete = Product.query.filter_by(id=product_id).first()
         db.session.delete(product_to_delete)
         db.session.commit()
-        return redirect(url_for('admin'))
+        return redirect(url_for('admin_page'))
     else:
         pass

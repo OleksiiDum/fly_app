@@ -5,7 +5,7 @@ const to = document.querySelector(".inputTo");
 const infoSpan = document.querySelector(".info-span");
 
 async function getAirports() {
-  let url = "/all_airports";
+  let url = "/airports";
   let request = await fetch(url);
   let response = await request.json();
   return response;

@@ -8,7 +8,6 @@ class Airport(db.Model):
     country = db.Column(db.String, nullable=False)
     city = db.Column(db.String, nullable=False)
     airport_name = db.Column(db.String, nullable=False)
-    timezone = db.Column(db.Integer, nullable=False)
 
     def __repr__(self):
         return f'Airport: {self.airport_name}, {self.city} {self.country}. UTC +{self.timezone}'
@@ -23,7 +22,6 @@ class Flight(db.Model):
     departure_time = db.Column(db.String, nullable=False)
     arrivals_time = db.Column(db.String, nullable=False)
     standard_price = db.Column(db.Integer, nullable=True)
-    vip_price = db.Column(db.Integer, nullable=True)
 
     def __repr__(self):
         return f'Flight from {self.from_airport} to {self.to_airport}. Date: {self.departure_time}'

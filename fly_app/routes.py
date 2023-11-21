@@ -3,6 +3,7 @@ from fly_app import app
 from fly_app.controllers import create_airport, get_all_account_passengers, get_all_airports, get_all_users, register_user, login_user, verify_user, create_flight, create_product, manage_flight, manage_product, manage_airport, get_all_flights, get_all_products, create_passenger, create_ticket, get_tickets, logout_user, get_user_info, is_admin, is_authenticated, get_needed_flight
 from fly_app import helpers
 from fly_app.nationalities import NATIONALITIES_list
+from fly_app.forms import AddAirportForm, DeleteAirportForm, AddFlightForm, DeleteFlightForm, AddProductForm, DeleteProductForm
 
 
 airports_bp = Blueprint('airports_bp', __name__)
@@ -33,11 +34,13 @@ def account_page():
 @app.route('/admin_page')
 @helpers.admin
 def admin_page():
-    all_users = get_all_users(request)
-    all_airports = get_all_airports(request)
-    all_flights = get_all_flights(request)
-    all_products = get_all_products(request)
-    return render_template('admin.html', airports=all_airports, flights=all_flights, products=all_products, users=all_users)
+    form = AddAirportForm()
+    form_2 = DeleteAirportForm()
+    form_3 = AddFlightForm()
+    form_4 = DeleteFlightForm()
+    form_5 = AddProductForm()
+    form_6 = DeleteProductForm()
+    return render_template('admin.html', form=form, form_2=form_2, form_3=form_3, form_4=form_4, form_5=form_5, form_6=form_6)
 
 
 @app.route('/register', methods=["POST"])
@@ -71,7 +74,7 @@ def all_airports():
 def add_airport():
     return create_airport(request)
 
-@airports_bp.route('/airports/manage', methods=["GET", "DELETE"])
+@airports_bp.route('/airports/manage', methods=["POST"])
 @helpers.admin
 def manage_airports():
     return manage_airport(request)
@@ -98,11 +101,11 @@ def add_flight():
 def get_flights():
     return get_all_flights(request)
 
-@flights_bp.route('/flights/<id>', methods=["GET", "POST"])
+@flights_bp.route('/get_flight', methods=["GET", "POST"]) #for JS request
 def get_flight():
     return get_needed_flight(request)
 
-@flights_bp.route('/flights/manage', methods=["GET", "DELETE"])
+@flights_bp.route('/flights/manage', methods=["POST"])
 @helpers.admin
 def manage_flights():
     return manage_flight(request)
@@ -120,7 +123,7 @@ def get_all_tickets():
 def add_product():
     return create_product(request)
 
-@app.route('/manage_products', methods=["GET", "DELETE"])
+@app.route('/manage_products', methods=["POST"])
 @helpers.admin
 def manage_products():
     return manage_product(request)

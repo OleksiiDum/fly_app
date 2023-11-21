@@ -91,7 +91,7 @@ openDateWindow.addEventListener("click", (event) => {
   const date = new Date();
 
   let day = date.getDate();
-  let month = date.getMonth() + 1;
+  let month = date.getMonth();
   let year = date.getFullYear();
   showMonth(year, months[month], day);
   calenderWindow.classList.remove("hidden");

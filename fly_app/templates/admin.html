@@ -3,85 +3,66 @@
 {% block body %}
 <div class="manage-airports">
     
-    <form action="/add_airport" method="POST">
+    <form action="/airports/add" method="POST" class="admin-forms">
         <h1>Add Airport</h1>
-        <label for="country">Country</label>
-        <input type="text" name="country" id="country">
-        <label for="city">City</label>
-        <input type="text" name="city" id="city">
-        <label for="name">Airport Name</label>
-        <input type="text" name="airport_name" id="airport_name">
-        <label for="timezone">Timezone</label>
-        <input type="text" name="timezone" id="timezone">
-        <input type="submit" value="Submit">
+        {{ form.country.label }}
+        {{ form.country }}
+        {{ form.city.label }}
+        {{ form.city }}
+        {{ form.airport_name.label }}
+        {{ form.airport_name }}
+        {{ form.submit }}
+        
     </form>
-    <form action="/manage_airports" method="DELETE"> #JS
+    <form action="/airports/manage" method="POST" class="admin-forms">
         <h1>Delete Airport</h1>
-        <label for="airport">Airport</label>
-        <select name="airport">
-            {% for airport in airports %}
-                <option value="{{ airport.id }}">{{ airport['city'] + ' ' + airport['country'] }}</option>
-            {% endfor %}
-        </select>
-        <input type="submit" value="Submit">
+        {{ form_2.airport.label }}
+        {{ form_2.airport }}
+        {{ form_2.submit }}
     </form>
 </div>
 <div class="manage_flights">
     
-    <form action="/add_flight" method="POST">
+    <form action="/flights/add" method="POST" class="admin-forms">
         <h1>Add flight</h1>
-        <label for="from-airport">From Airport</label>
-        <select name="from-airport">
-            {% for airport in airports %}
-                <option value="{{ airport['city'] }}">{{ airport['city'] }}</option>
-            {% endfor %}
-        </select>
-        <label for="to-airport">From Airport</label>
-        <select name="to-airport">
-            {% for airport in airports %}
-                <option value="{{ airport['city'] }}">{{ airport['city'] }}</option>
-            {% endfor %}
-        </select>
-        <label for="dep-time">Departure Time</label>
-        <input type="date" name="dep-time">
-        <label for="arr-time">Arrival Time</label>
-        <input type="date" name="arr-time">
-        <input type="submit" value="Submit">
+        {{ form_3.from_airport.label }}
+        {{ form_3.from_airport }}
+        {{ form_3.dep_time.label }}
+        {{ form_3.dep_time(placeholder=" format='%Y-%m-%d %H:%M'") }}
+        {{ form_3.to_airport.label }}
+        {{ form_3.to_airport }}
+        {{ form_3.arr_time.label }}
+        {{ form_3.arr_time(placeholder=" format='%Y-%m-%d %H:%M'") }}
+        {{ form_3.price.label }}
+        {{ form_3.price }}
+        {{ form_3.submit }}
     </form>
     
-    <form action="/manage_flights" method="DELETE">
+    <form action="/flights/manage" method="POST" class="admin-forms">
         <h1>Delete Flight</h1>
-        <label for="flight">Flight</label>
-        <select name="flight">
-            {% for flight in flights %}
-                <option value="{{ flight }}">{{ flight }}</option>
-            {% endfor %}
-        </select>
-        <input type="submit" value="Submit">
+        {{ form_4.flight.label }}
+        {{ form_4.flight }}
+        {{ form_4.submit }}
     </form>
 </div>
 <div class="manage_products">
     
-    <form action="/add_product" method="POST">
+    <form action="/add_product" method="POST" class="admin-forms">
         <h1>Add product</h1>
-        <label for="product-name">Product Name</label>
-        <input type="text" name="product-name">
-        <label for="description">Description</label>
-        <input type="text" name="description">
-        <label for="price">Price</label>
-        <input type="text" name="price">
-        <input type="submit" value="Submit">
+        {{ form_5.name.label }}
+        {{ form_5.name }}
+        {{ form_5.description.label }}
+        {{ form_5.description }}
+        {{ form_5.price.label }}
+        {{ form_5.price }}
+        {{ form_5.submit }}
     </form>
     
-    <form action="/manage_products" method="DELETE">
+    <form action="/manage_products" method="POST" class="admin-forms">
         <h1>Delete Product</h1>
-        <label for="product">Product</label>
-        <select name="product">
-            {% for product in products %}
-                <option value="{{ product.id }}">{{ product }}</option>
-            {% endfor %}
-        </select>
-        <input type="submit" value="Submit">
+        {{ form_6.name.label }}
+        {{ form_6.name }}
+        {{ form_6.submit }}
     </form>
 </div>
 {% endblock body %}
