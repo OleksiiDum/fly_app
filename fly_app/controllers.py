@@ -1,4 +1,4 @@
-from fly_app.models import  Airport, Flight, Product, Ticket, Account, Authcode, Passanger
+from fly_app.models import  Airport, Flight, Ticket, Account, Authcode, Passanger
 from fly_app import db
 import fly_app.helpers as helpers
 from flask import render_template, url_for, session, redirect, jsonify
@@ -38,7 +38,7 @@ def get_all_airports(request):
         airports_dict = []
         if all_airports:
             for airport in all_airports:
-                airports_dict.append({"id": airport.id, "city": airport.city, "country": airport.country, "timezone": airport.timezone})
+                airports_dict.append({"id": airport.id, "city": airport.city, "country": airport.country})
             print(airports_dict)    
             return jsonify(airports_dict)
         else:
@@ -49,6 +49,11 @@ def get_all_users(request):
     if request.method == "GET":
         all_users = Account.query.all()
         return all_users
+
+def get_all_passengers(request):
+    if request.method == "GET":
+        all_passengers = Passanger.query.all()
+        return all_passengers
 
 def is_admin():
     if session["admin"] == True:
@@ -150,6 +155,13 @@ def create_passenger(request):
     else:
         return  jsonify({"message": "Wrong method"})
 
+def delete_passenger(request):
+    if  request.method == "POST":
+        id = request.form.get("id")
+        passenger = Account.query.filter_by(id=id).first()
+        session.delete(passenger)
+        session.commit()
+
 def get_all_account_passengers(request):
     if request.method  == "GET":
         email = session.get("email")
@@ -172,12 +184,6 @@ def get_users_passengers(id):
             "age": passenger.age
         })
     return result
-
-# def get_passenger(request):
-#     if  request.method == "POST":
-#         print(request.get_json()["id"])
-#         passenger = Passanger.query.filter_by(id=request.get_json()["id"]).first()
-#         return jsonify({"passenger": passenger})
 
 #FLIGHT
 def create_flight(request):
@@ -205,15 +211,17 @@ def get_all_flights(request):
 
 def get_needed_flight(request):
     if request.method =="POST":
+        print(request.get_json()["from"])
         flight = Flight.query.filter_by(from_airport=request.get_json()["from"], to_airport=request.get_json()["to"]).all()
         if flight:
             all_flights = []
             for one_flight in flight:
-                data = {"flight": [one_flight.from_airport, one_flight.to_airport, one_flight.departure_time]}
+                data = {"flight": [one_flight.from_airport, one_flight.to_airport, one_flight.departure_time, one_flight.arrivals_time]}
                 all_flights.append(data)
+            print(flight)
             return jsonify(all_flights)
         else:
-            return jsonify({"flight": None, "error": "We have not flights in this direction"})
+            return jsonify({"flight": None, "error": "We have no flights in this direction"})
         
 
 #TICKET   
@@ -231,32 +239,3 @@ def get_tickets(request):
     if request.method == "GET":
         tickets = Ticket.query.all()
         return tickets
-
-
-#PRODUCT
-def create_product(request):
-    if request.method == "POST":
-        product_name = request.form.get('product-name')
-        description = request.form.get('description')
-        price = request.form.get('price')
-        product = Product(product_name=product_name, description=description, price=price)
-        db.session.add(product)
-        db.session.commit()
-        return redirect(url_for('admin_page'))
-    else:
-        pass
-
-def get_all_products(request):
-    if request.method == "GET":
-        products = Product.query.all()
-        return products
-    
-def manage_product(request):
-    if  request.method == "POST":
-        product_id = int(request.form['name'])
-        product_to_delete = Product.query.filter_by(id=product_id).first()
-        db.session.delete(product_to_delete)
-        db.session.commit()
-        return redirect(url_for('admin_page'))
-    else:
-        pass

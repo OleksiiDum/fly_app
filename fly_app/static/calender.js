@@ -67,6 +67,7 @@ function showMonth(year, monthObj, day) {
 
   days.forEach((monthday) => {
     getFlightDays().then((data) => {
+      console.log(data[0]);
       if (monthday.innerText == data[0].flight[2].slice(-2)) {
         monthday.classList.add("active");
         monthday.addEventListener("click", () => {

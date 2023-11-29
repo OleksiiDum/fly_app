@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, HiddenField, IntegerField, FloatField, SubmitField, DateTimeField, SelectField
 from wtforms.validators import DataRequired
-from fly_app.models import  Airport, Flight, Product
+from fly_app.models import  Airport, Flight, Passanger, Account
 
 
 class AddAirportForm(FlaskForm):
@@ -47,16 +47,29 @@ class DeleteFlightForm(FlaskForm):
         airport = Airport.query.get(airport_id)
         return airport.city if airport else 'Unknown'
 
-class AddProductForm(FlaskForm):
-    name = StringField('Products', validators=[DataRequired()])
-    description = StringField('Description')
-    price = FloatField('Price', validators=[DataRequired()])
-    submit = SubmitField('Submit')
 
-class DeleteProductForm(FlaskForm):
-    name = SelectField(u'Products')
-    submit = SubmitField('Submit')
+# class DeletePassengerForm(FlaskForm):
+#     user_account = SelectField(u'Account')
+#     passenger = SelectField(u'Passenger')
+#     submit = SubmitField('Submit')
 
-    def __init__(self, *args, **kwargs):
-        super(DeleteProductForm, self).__init__(*args, **kwargs)
-        self.name.choices = [(str(prod.id), prod.product_name + ' ' + str(prod.price)) for prod in Product.query.all()]
+#     def __init__(self, *args, **kwargs):
+#         super(DeletePassengerForm, self).__init__(*args, **kwargs)
+#         accounts = Account.query.all()
+#         passengers = 
+#         choices = [(str(account.id), f"{account.email}") for account in accounts]
+#         choices_2 = set_pa
+#         self.user_account.choices = choices
+
+#     def set_passenger_choices(self, account_id):
+#         account = Account.query.get(account_id)
+#         if account:
+#             passengers = Passanger.query.filter_by(account_id=account.id).all()
+#             choices = [(str(passenger.id), f"{passenger.first_name} {passenger.last_name}") for passenger in passengers]
+#             self.passenger.choices = choices
+#         else:
+#             self.passenger.choices = []
+
+#     def get_account_email(self, account_id):
+#         account = Account.query.get(account_id)
+#         return account.email if account else 'Unknown'

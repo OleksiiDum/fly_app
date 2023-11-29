@@ -392,6 +392,12 @@ button.person,
   gap: 2rem;
 }
 
+.manage_products ol {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+}
+
 .manage-airports {
   padding-top: 10rem;
 }

@@ -1,9 +1,9 @@
 from flask import render_template, url_for, request, Blueprint
 from fly_app import app
-from fly_app.controllers import create_airport, get_all_account_passengers, get_all_airports, get_all_users, register_user, login_user, verify_user, create_flight, create_product, manage_flight, manage_product, manage_airport, get_all_flights, get_all_products, create_passenger, create_ticket, get_tickets, logout_user, get_user_info, is_admin, is_authenticated, get_needed_flight
+from fly_app.controllers import create_airport, get_all_passengers, delete_passenger, get_all_account_passengers, get_all_airports, get_all_users, register_user, login_user, verify_user, create_flight, manage_flight, manage_airport, get_all_flights, create_passenger, create_ticket, get_tickets, logout_user, get_user_info, is_admin, is_authenticated, get_needed_flight
 from fly_app import helpers
 from fly_app.nationalities import NATIONALITIES_list
-from fly_app.forms import AddAirportForm, DeleteAirportForm, AddFlightForm, DeleteFlightForm, AddProductForm, DeleteProductForm
+from fly_app.forms import AddAirportForm, DeleteAirportForm, AddFlightForm, DeleteFlightForm, DeletePassengerForm
 
 
 airports_bp = Blueprint('airports_bp', __name__)
@@ -38,9 +38,13 @@ def admin_page():
     form_2 = DeleteAirportForm()
     form_3 = AddFlightForm()
     form_4 = DeleteFlightForm()
-    form_5 = AddProductForm()
-    form_6 = DeleteProductForm()
-    return render_template('admin.html', form=form, form_2=form_2, form_3=form_3, form_4=form_4, form_5=form_5, form_6=form_6)
+    form_5 = DeletePassengerForm()
+    if form_5.validate_on_submit():
+        selected_account_id = int(form.user_account.data)
+        form.set_passenger_choices(selected_account_id)
+    users = get_all_users(request)
+    passengers = get_all_passengers(request)
+    return render_template('admin.html', form=form, form_2=form_2, form_3=form_3, form_4=form_4,form_5=form_5, users=users, passengers=passengers)
 
 
 @app.route('/register', methods=["POST"])
@@ -86,6 +90,11 @@ def manage_airports():
 def add_passenger():
     return create_passenger(request)
 
+@passengers_bp.route('/passengers/delete', methods=["POST"])
+@helpers.auth_required
+def delete_passenger():
+    return delete_passenger(request)
+
 @passengers_bp.route('/passengers/get_account', methods=["GET", "POST"])
 def get_passengers_by_id():
     return get_all_account_passengers(request)
@@ -117,13 +126,3 @@ def add_ticket():
 @app.route('/get_all_tickets')
 def get_all_tickets():
     return get_tickets(request)
-
-@app.route('/add_product', methods=["GET", "POST"])
-@helpers.admin
-def add_product():
-    return create_product(request)
-
-@app.route('/manage_products', methods=["POST"])
-@helpers.admin
-def manage_products():
-    return manage_product(request)

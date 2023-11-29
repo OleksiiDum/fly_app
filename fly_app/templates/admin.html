@@ -45,24 +45,27 @@
         {{ form_4.submit }}
     </form>
 </div>
+
 <div class="manage_products">
-    
-    <form action="/add_product" method="POST" class="admin-forms">
-        <h1>Add product</h1>
-        {{ form_5.name.label }}
-        {{ form_5.name }}
-        {{ form_5.description.label }}
-        {{ form_5.description }}
-        {{ form_5.price.label }}
-        {{ form_5.price }}
-        {{ form_5.submit }}
+    <form action="/passengers/delete" method="POST" class="admin-forms">
+        {{ form_5.hidden_tag() }}
+        {{ form_5.user_account.label }}
+        {{ form_5.user_account }}
+        {{ form_5.passenger.label }}
+        {{ form_5.passenger }}
+        {{ form_5.submit() }}
     </form>
-    
-    <form action="/manage_products" method="POST" class="admin-forms">
-        <h1>Delete Product</h1>
-        {{ form_6.name.label }}
-        {{ form_6.name }}
-        {{ form_6.submit }}
-    </form>
+    <ol>
+    {% for user in users %}
+        <li>{{ user.email }}: 
+            <ul>{% for passenger in passengers %}
+                {% if passenger.account_id == user.id %}
+                <li>{{ passenger.first_name + passenger.last_name }}</li>
+                {% endif %}
+                {% endfor %}
+            </ul>
+        </li>
+    {% endfor %}
+    </ol>
 </div>
 {% endblock body %}

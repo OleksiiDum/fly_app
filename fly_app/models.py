@@ -72,16 +72,4 @@ class Authcode(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     code = db.Column(db.String)
     userid = db.Column(db.Integer, db.ForeignKey('accounts.id'))
-
-
-class Product(db.Model):
-    
-    __tablename__ = 'products'
-    id = db.Column(db.Integer, primary_key=True)
-    product_name = db.Column(db.String)
-    description = db.Column(db.String)
-    price = db.Column(db.Integer)
-
-    def __repr__(self):
-        return f'{self.product_name}: {self.price}'
     
